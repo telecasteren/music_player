@@ -1,0 +1,14 @@
+:root {
+  /* BASE */
+  --bg-dark: #373434;
+  --bg-light: #fffbf6;
+
+  --text-dark: #ededed;
+  --text-light: #0f0f0f;
+
+  --accent-dark: #a04d4b;
+  --accent-light: #8fc988;
+
+  --brand-dark: ;
+  --brand-light: #3b82f6;
+}
