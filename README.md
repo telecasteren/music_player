@@ -10,7 +10,7 @@
 
 ### Description
 
-A simple audio player for playing music, and exposing saved catalogues/playlists for browsing. It's being built as a native desktop app for the fun of learning and convenient personal use. When it is up and running, I plan to make a web version of the app--hopefully that can work with a shared backend logic. My goal will be using the adapter pattern to interact with multiple music providers like Spotify, Apple Music, etc., by translating their APIs into a common interface that's easier to maintain.
+A simple audio player for playing music, and exposing saved catalogues/playlists for browsing. It's being built as a native desktop app for the fun of learning and convenient personal use. When it is up and running, I plan to make a web version of the app--hopefully that can work with a shared backend logic. My goal will be using the adapter pattern to interact with multiple music providers, by translating their APIs into a common interface that's easier to maintain.
 
 ---
 
