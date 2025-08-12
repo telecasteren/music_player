@@ -26,5 +26,51 @@
 
 .audio_wrapper .rhap_progress-indicator:hover {
   scale: 1.05;
-  transition-duration: 0.3s;
+}
+
+/* Next / Previous */
+.rhap_skip-button[aria-label="Previous"]::after {
+  content: attr(aria-label) " track";
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  transform: translate(-95%, 80px);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.rhap_skip-button[aria-label="Previous"].show-tooltip:hover::after {
+  opacity: 1;
+  transform: translate(-95%, 80px);
+}
+
+.rhap_skip-button[aria-label="Skip"]::after {
+  content: "Next track";
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  transform: translate(10%, 80px);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.rhap_skip-button[aria-label="Skip"].show-tooltip:hover::after {
+  opacity: 1;
+  transform: translate(10%, 80px);
 }

@@ -39,11 +39,23 @@ const data = {
       name: "Chet Baker",
       album: {
         name: "All Things Chet",
+        releaseYear: "1953",
         img: {
           src: "src/assets/proxy-image.jpg",
           alt: "Chet Baker Album: All Things Chet",
         },
-        releaseYear: "1953",
+        songs: {
+          1: {
+            title: "My Funny Valentine",
+            duration: "5:30",
+            src: "src/lib/data/musicFiles/Tell-Me-What_Denys-Brodovskyi.mp3",
+          },
+          2: {
+            title: "There Will Never Be Another You",
+            duration: "6:00",
+            src: "src/lib/data/musicFiles/Tell-Me-What_Denys-Brodovskyi.mp3",
+          },
+        },
       },
     },
     {
@@ -51,11 +63,23 @@ const data = {
       name: "Iron Maiden",
       album: {
         name: "Killers",
+        releaseYear: "1981",
         img: {
           src: "src/assets/proxy-image-1.jpg",
           alt: "Iron Maiden Album: Killers",
         },
-        releaseYear: "1981",
+        songs: {
+          1: {
+            title: "Rime Of The Ancient Mariner",
+            duration: "5:30",
+            src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3",
+          },
+          2: {
+            title: "Seventh Son Of A Seventh Son",
+            duration: "6:00",
+            src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3",
+          },
+        },
       },
     },
     {
@@ -63,11 +87,23 @@ const data = {
       name: "Led Zeppelin",
       album: {
         name: "Coda",
+        releaseYear: "1982",
         img: {
           src: "src/assets/proxy-image-4.jpg",
           alt: "Led Zeppelin album: Coda",
         },
-        releaseYear: "1982",
+        songs: {
+          1: {
+            title: "In The Evening",
+            duration: "5:30",
+            src: "src/lib/data/musicFiles/Future-design_penguinmusic.mp3",
+          },
+          2: {
+            title: "I'm Gonna Leave You",
+            duration: "6:00",
+            src: "src/lib/data/musicFiles/Future-design_penguinmusic.mp3",
+          },
+        },
       },
     },
     {
@@ -75,11 +111,23 @@ const data = {
       name: "Madonna",
       album: {
         name: "Like a Virgin",
+        releaseYear: "1980",
         img: {
           src: "src/assets/proxy-image-3.jpg",
           alt: "Madonna Album: Like a Virgin",
         },
-        releaseYear: "1980",
+        songs: {
+          1: {
+            title: "Material Girl",
+            duration: "4:00",
+            src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3",
+          },
+          2: {
+            title: "Like a Virgin",
+            duration: "3:30",
+            src: "",
+          },
+        },
       },
     },
   ],

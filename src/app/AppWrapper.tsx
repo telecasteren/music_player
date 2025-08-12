@@ -3,16 +3,19 @@ import App from "./App";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import "@/css/index.css";
+import data from "@/lib/data/sampleData";
+import useSkipBtnTooltip from "@/components/controls/skipBtnTooltip";
 
-// Sample tracks
-const tracks = [
-  { src: "src/lib/data/musicFiles/Future-design_penguinmusic.mp3" },
-  { src: "src/lib/data/musicFiles/Tell-Me-What_Denys-Brodovskyi.mp3" },
-  { src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3" },
-];
+const tracks = data.artists.map((artist) => {
+  return {
+    src: artist.album.songs[1].src ?? "",
+  };
+});
 
 const AppWrapper = () => {
   const [currentTrackIdx, setCurrentTrackIdx] = React.useState(0);
+
+  useSkipBtnTooltip();
 
   return (
     <>
@@ -27,6 +30,20 @@ const AppWrapper = () => {
           src={tracks[currentTrackIdx].src}
           onPlay={() => console.log("Playing!")}
           onEnded={() => setCurrentTrackIdx((idx) => (idx + 1) % tracks.length)}
+          progressJumpSteps={{ forward: 0, backward: 0 }}
+          showSkipControls
+          showJumpControls={false}
+          onClickPrevious={() =>
+            setCurrentTrackIdx(
+              (idx) => (idx - 1 + tracks.length) % tracks.length
+            )
+          }
+          onClickNext={() =>
+            setCurrentTrackIdx((idx) => (idx + 1) % tracks.length)
+          }
+          onError={() => {
+            throw new Error("Error playing track");
+          }}
         />
       </div>
     </>

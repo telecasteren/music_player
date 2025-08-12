@@ -33,7 +33,7 @@ music-project/
 └── README.md
 ```
 
-## Tools
+## Build and Tools
 
 **languages**
 
@@ -48,6 +48,12 @@ music-project/
 - Vite
 - Tailwind
 - shadcn (components)
+
+### Audio player
+
+Built with
+[react-h5-audioplayer](https://www.npmjs.com/package/react-h5-audio-player/v/2.3.2)
+and custom [styles](src/css/audioplayer/README.md)
 
 ## Install dependencies and run application
 
@@ -75,7 +81,7 @@ npm install
 **Run app**
 
 ```bash
-npm run tauri dev
+npm run tauri
 ```
 
 ## Deployment and build
