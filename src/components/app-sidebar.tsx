@@ -1,6 +1,7 @@
 import * as React from "react";
 import { AudioLines } from "lucide-react";
 import data from "@/lib/data/sampleData";
+import { albumsList } from "@/lib/helpers/data_mapping";
 import { NavUser } from "@/components/settings/nav-user";
 import {
   Sidebar,
@@ -19,7 +20,6 @@ import {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // Now state is used to set item active -- use the url/router
   const [activeItem, setActiveItem] = React.useState(data.navMain[0]);
-  const [artists, setArtists] = React.useState(data.artists);
   const { setOpen } = useSidebar();
 
   return (
@@ -63,15 +63,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       }}
                       onClick={() => {
                         setActiveItem(item);
-                        const artist = data.artists.sort(
-                          () => Math.random() - 0.5
-                        );
-                        setArtists(
-                          artist.slice(
-                            0,
-                            Math.max(5, Math.floor(Math.random() * 10) + 1)
-                          )
-                        );
                         setOpen(true);
                       }}
                       isActive={activeItem?.title === item.title}
@@ -99,31 +90,31 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarContent>
           <SidebarGroup className="px-0">
             <SidebarGroupContent>
-              {artists.map((artist) => (
-                <a
-                  href="#"
-                  key={artist.id}
-                  className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
-                >
-                  <div className="flex w-full items-center gap-2">
-                    <span>
-                      <img
-                        src={artist.album.img.src}
-                        alt={artist.album.img.alt}
-                        className="w-8 border border-white rounded-sm"
-                      />
-                    </span>
-                    <span className="font-medium">
-                      {artist.album.name}
-                      <span className="ml-2 text-xs">
-                        ({artist.album.releaseYear})
+              {albumsList.map(
+                ({ imgSrc, imgAlt, albumTitle, releaseYear, artistName }) => (
+                  <a
+                    href="#"
+                    key={albumTitle}
+                    className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
+                  >
+                    <div className="flex w-full items-center gap-2">
+                      <span>
+                        <img
+                          src={imgSrc}
+                          alt={imgAlt}
+                          className="w-8 border border-white rounded-sm"
+                        />
                       </span>
-                    </span>
+                      <span className="font-medium">
+                        {albumTitle}
+                        <span className="ml-2 text-xs">({releaseYear})</span>
+                      </span>
 
-                    <span className="ml-auto">{artist.name}</span>
-                  </div>
-                </a>
-              ))}
+                      <span className="ml-auto">{artistName}</span>
+                    </div>
+                  </a>
+                )
+              )}
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>

@@ -3,14 +3,8 @@ import App from "./App";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import "@/css/index.css";
-import data from "@/lib/data/sampleData";
+import { tracks } from "@/lib/helpers/data_mapping";
 import useSkipBtnTooltip from "@/components/controls/skipBtnTooltip";
-
-const tracks = data.artists.map((artist) => {
-  return {
-    src: artist.album.songs[1].src ?? "",
-  };
-});
 
 const AppWrapper = () => {
   const [currentTrackIdx, setCurrentTrackIdx] = React.useState(0);
@@ -27,7 +21,7 @@ const AppWrapper = () => {
       <div className="audio_wrapper fixed bottom-0 left-0 w-full z-[9999] shadow-lg">
         <AudioPlayer
           autoPlay
-          src={tracks[currentTrackIdx].src}
+          src={tracks[currentTrackIdx]}
           onPlay={() => console.log("Playing!")}
           onEnded={() => setCurrentTrackIdx((idx) => (idx + 1) % tracks.length)}
           progressJumpSteps={{ forward: 0, backward: 0 }}

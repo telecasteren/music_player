@@ -37,98 +37,111 @@ const data = {
     {
       id: 1,
       name: "Chet Baker",
-      album: {
-        name: "All Things Chet",
-        releaseYear: "1953",
-        img: {
-          src: "src/assets/proxy-image.jpg",
-          alt: "Chet Baker Album: All Things Chet",
-        },
-        songs: {
-          1: {
-            title: "My Funny Valentine",
-            duration: "5:30",
-            src: "src/lib/data/musicFiles/Tell-Me-What_Denys-Brodovskyi.mp3",
+      albums: [
+        {
+          title: "All Things Chet",
+          releaseYear: "1953",
+          img: {
+            src: "src/assets/proxy-image.jpg",
+            alt: "Chet Baker Album: All Things Chet",
           },
-          2: {
-            title: "There Will Never Be Another You",
-            duration: "6:00",
-            src: "src/lib/data/musicFiles/Tell-Me-What_Denys-Brodovskyi.mp3",
-          },
+          songs: [
+            {
+              title: "My Funny Valentine",
+              duration: "5:30",
+              src: "src/lib/data/musicFiles/Tell-Me-What_Denys-Brodovskyi.mp3",
+            },
+            {
+              title: "There Will Never Be Another You",
+              duration: "6:00",
+              src: "src/lib/data/musicFiles/Tell-Me-What_Denys-Brodovskyi.mp3",
+            },
+          ],
         },
-      },
+      ],
     },
     {
       id: 2,
       name: "Iron Maiden",
-      album: {
-        name: "Killers",
-        releaseYear: "1981",
-        img: {
-          src: "src/assets/proxy-image-1.jpg",
-          alt: "Iron Maiden Album: Killers",
-        },
-        songs: {
-          1: {
-            title: "Rime Of The Ancient Mariner",
-            duration: "5:30",
-            src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3",
+      albums: [
+        {
+          title: "Killers",
+          releaseYear: "1981",
+          img: {
+            src: "src/assets/proxy-image-1.jpg",
+            alt: "Iron Maiden Album: Killers",
           },
-          2: {
-            title: "Seventh Son Of A Seventh Son",
-            duration: "6:00",
-            src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3",
-          },
+          songs: [
+            {
+              title: "Rime Of The Ancient Mariner",
+              duration: "5:30",
+              src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3",
+            },
+            {
+              title: "Seventh Son Of A Seventh Son",
+              duration: "6:00",
+              src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3",
+            },
+            {
+              title: "The Trooper",
+              duration: "4:00",
+              src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3",
+            },
+          ],
         },
-      },
+      ],
     },
     {
       id: 3,
       name: "Led Zeppelin",
-      album: {
-        name: "Coda",
-        releaseYear: "1982",
-        img: {
-          src: "src/assets/proxy-image-4.jpg",
-          alt: "Led Zeppelin album: Coda",
-        },
-        songs: {
-          1: {
-            title: "In The Evening",
-            duration: "5:30",
-            src: "src/lib/data/musicFiles/Future-design_penguinmusic.mp3",
+      albums: [
+        {
+          title: "Coda",
+          releaseYear: "1982",
+          img: {
+            src: "src/assets/proxy-image-4.jpg",
+            alt: "Led Zeppelin album: Coda",
           },
-          2: {
-            title: "I'm Gonna Leave You",
-            duration: "6:00",
-            src: "src/lib/data/musicFiles/Future-design_penguinmusic.mp3",
-          },
+          songs: [
+            {
+              title: "In The Evening",
+              duration: "5:30",
+              src: "src/lib/data/musicFiles/Future-design_penguinmusic.mp3",
+            },
+            {
+              title: "I'm Gonna Leave You",
+              duration: "6:00",
+              src: "src/lib/data/musicFiles/Future-design_penguinmusic.mp3",
+            },
+          ],
         },
-      },
+      ],
     },
     {
       id: 4,
       name: "Madonna",
-      album: {
-        name: "Like a Virgin",
-        releaseYear: "1980",
-        img: {
-          src: "src/assets/proxy-image-3.jpg",
-          alt: "Madonna Album: Like a Virgin",
-        },
-        songs: {
-          1: {
-            title: "Material Girl",
-            duration: "4:00",
-            src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3",
+      albums: [
+        {
+          title: "Like a Virgin",
+          releaseYear: "1980",
+          img: {
+            src: "src/assets/proxy-image-3.jpg",
+            alt: "Madonna Album: Like a Virgin",
           },
-          2: {
-            title: "Like a Virgin",
-            duration: "3:30",
-            src: "",
-          },
+          songs: [
+            {
+              title: "Material Girl",
+              duration: "4:00",
+              src: "src/lib/data/musicFiles/tvari-tokyo-cafe_TVARI.mp3",
+            },
+            {
+              title: "Like a Virgin",
+              duration: "3:30",
+              src: "",
+            },
+          ],
         },
-      },
+      ],
     },
   ],
 };

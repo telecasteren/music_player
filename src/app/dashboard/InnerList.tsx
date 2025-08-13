@@ -17,6 +17,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import type { Artist } from "@/lib/data/artists/typesArtists";
+import { albumInfo } from "@/lib/helpers/data_mapping";
 
 type Props = {
   listItems: string[];
@@ -63,23 +64,28 @@ export function InnerList({ listItems, artists }: Props) {
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4">
-          {Array.from({ length: 14 }).map((_, index) => (
-            <div
-              key={index}
-              className="bg-muted/50 aspect-video h-12 w-full rounded-lg"
-            >
-              <div className="flex items-center justify-center gap-8">
-                <img
-                  src={artists[1].album.img.src}
-                  alt={artists[1].album.img.alt}
-                  className="w-12 border border-white rounded-sm"
-                />
-                <p>{artists[1].album.name}</p>
-                <Button className="group flex items-center gap-2 cursor-pointer">
-                  <Play className="w-4 h-4 text-gray-900 group-hover:text-gray-500" />
-                  <span className="sr-only">Play</span>
-                </Button>
-              </div>
+          {albumInfo.map((artist) => (
+            <div className="bg-muted/50 aspect-video h-12 w-full rounded-lg flex items-center">
+              {artist.albums.map((album) => (
+                <div className="flex items-center justify-between gap-4 ml-8 mr-8 w-full">
+                  <img
+                    src={album.imgSrc}
+                    alt={album.imgAlt}
+                    className="w-10 border border-white rounded-sm"
+                  />
+                  <div className="flex gap-2 flex-1 justify-between items-center">
+                    <p>{album.albumTitle}</p>
+                    <span className="text-xs text-gray-500">
+                      ({album.numberOfSongs} songs)
+                    </span>
+                  </div>
+
+                  <Button className="group flex items-center gap-2 cursor-pointer">
+                    <Play className="w-4 h-4 text-gray-900 group-hover:text-gray-500" />
+                    <span className="sr-only">Play</span>
+                  </Button>
+                </div>
+              ))}
             </div>
           ))}
         </div>
