@@ -4,9 +4,7 @@
 
 **A simple audio player application**<br/>
 
-![placeholder for image](image-url)
-
-[Placeholder for url to live site](url)
+![image](src/assets/satori-screenshot.png)
 
 ### Description
 
@@ -84,13 +82,15 @@ npm install
 npm run tauri
 ```
 
-## Deployment and build
+This will automatically open the app window and all code changes can be seen live.
 
-**Web** !NOT IMPLEMENTED!<br/>
-The web version of this app is deployed using [Vercel](https://vercel.com/home).
+## Deployment and build
 
 **Native**<br/>
 The native desktop app is built using [Tauri](https://v2.tauri.app).
+
+**Web** !NOT IMPLEMENTED!<br/>
+The web version of this app is deployed using [Vercel](https://vercel.com/home).
 
 ## Contributions
 
