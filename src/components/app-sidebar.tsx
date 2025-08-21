@@ -1,8 +1,11 @@
 import * as React from "react";
 import { AudioLines } from "lucide-react";
-import data from "@/lib/data/sampleData";
-import { albumsList } from "@/lib/helpers/data_mapping";
 import { NavUser } from "@/components/settings/nav-user";
+import MusicFolderUploader from "@/components/MusicUploader";
+// import type { Artist } from "@/lib/data/types/artists";
+import mergeArtists from "@/lib/helpers/mergeArtists";
+import artists from "@/lib/data/artistsData";
+import navData from "@/lib/data/sidebarData";
 import {
   Sidebar,
   SidebarContent,
@@ -19,8 +22,10 @@ import {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // Now state is used to set item active -- use the url/router
-  const [activeItem, setActiveItem] = React.useState(data.navMain[0]);
+  const [activeItem, setActiveItem] = React.useState(navData.navMain[0]);
+
   const { setOpen } = useSidebar();
+  // const [artists, setArtists] = React.useState<Artist[]>([]);
 
   return (
     <Sidebar
@@ -39,7 +44,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuItem>
               <SidebarMenuButton size="lg" asChild className="md:h-8 md:p-0">
                 <a href="#">
-                  <div className="cursor-default bg-[var(--accent-light)] dark:bg-[var(--accent-dark)] text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                  <div className="cursor-default bg-[var(--accent-light)] dark:bg-[var(--accent-dark)] text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-md">
                     <AudioLines className="size-4" />
                   </div>
                   <div className="grid flex-1 text-left text-sm leading-tight">
@@ -54,7 +59,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroup>
             <SidebarGroupContent className="px-1.5 md:px-0">
               <SidebarMenu>
-                {data.navMain.map((item) => (
+                {navData.navMain.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       tooltip={{
@@ -77,8 +82,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter>
-          <NavUser user={data.user} />
+        <SidebarFooter className="mb-25">
+          <NavUser user={navData.user} />
         </SidebarFooter>
       </Sidebar>
 
@@ -90,33 +95,53 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarContent>
           <SidebarGroup className="px-0">
             <SidebarGroupContent>
-              {albumsList.map(
-                ({ imgSrc, imgAlt, albumTitle, releaseYear, artistName }) => (
-                  <a
-                    href="#"
-                    key={albumTitle}
-                    className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
-                  >
-                    <div className="flex w-full items-center gap-2">
-                      <span>
-                        <img
-                          src={imgSrc}
-                          alt={imgAlt}
-                          className="w-8 border border-white rounded-sm"
-                        />
-                      </span>
-                      <span className="font-medium">
-                        {albumTitle}
-                        <span className="ml-2 text-xs">({releaseYear})</span>
-                      </span>
-
-                      <span className="ml-auto">{artistName}</span>
-                    </div>
-                  </a>
+              {artists.length === 0 ? (
+                <div className="p-4 text-muted-foreground text-sm">
+                  Upload music to see your library here.
+                </div>
+              ) : (
+                artists.flatMap((artist) =>
+                  artist.albums.map((album) => (
+                    <a
+                      href="#"
+                      key={`${artist.name}-${album.name}`}
+                      className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
+                    >
+                      <div className="flex w-full items-center gap-2">
+                        <span>
+                          {album.img?.src ? (
+                            <img
+                              src={album.img.src}
+                              alt={album.img.alt || album.name}
+                              className="w-8 border border-white rounded-sm"
+                            />
+                          ) : (
+                            <div className="w-8 h-8 bg-gray-300 border rounded-sm" />
+                          )}
+                        </span>
+                        <span className="font-medium">
+                          {album.name}
+                          {album.releaseYear && (
+                            <span className="ml-2 text-xs">
+                              ({album.releaseYear})
+                            </span>
+                          )}
+                        </span>
+                        <span className="ml-auto">{artist.name}</span>
+                      </div>
+                    </a>
+                  ))
                 )
               )}
             </SidebarGroupContent>
           </SidebarGroup>
+          <div className="mt-4 text-sm">
+            <MusicFolderUploader onData={artists} />
+            {/* onData={(newArtists) =>
+              setArtists((prev) => mergeArtists(prev, newArtists))
+            }
+            /> */}
+          </div>
         </SidebarContent>
       </Sidebar>
     </Sidebar>

@@ -1,31 +1,31 @@
-import data from "@/lib/data/sampleData";
+import artists from "@/lib/data/artistsData";
 
-export const tracks = data.artists.flatMap((artist) =>
+export const tracks = artists.flatMap((artist) =>
   artist.albums.flatMap((album) =>
-    Object.values(album.songs).map((song) => song.src)
+    Object.values(album.tracks).map((track) => track.path)
   )
 );
 
 // Used to display album information per artist
-export const albumInfo = data.artists.map((artist) => ({
+export const albumInfo = artists.map((artist) => ({
   artistName: artist.name,
   albums: artist.albums.map((album) => ({
     imgSrc: album.img.src,
     imgAlt: album.img.alt,
-    albumTitle: album.title,
+    albumTitle: album.name,
     releaseYear: album.releaseYear,
-    numberOfSongs: album.songs.length,
+    numberOfTracks: album.tracks.length,
   })),
 }));
 
 // Used in the sidebar to display list of albums
-export const albumsList = data.artists.flatMap((artist) =>
+export const albumsList = artists.flatMap((artist) =>
   artist.albums.map((album) => ({
     artistName: artist.name,
     imgSrc: album.img.src,
     imgAlt: album.img.alt,
-    albumTitle: album.title,
+    albumTitle: album.name,
     releaseYear: album.releaseYear,
-    numberOfSongs: album.songs.length,
+    numberOfTracks: album.tracks.length,
   }))
 );

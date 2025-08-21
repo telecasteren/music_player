@@ -16,15 +16,14 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import type { Artist } from "@/lib/data/artists/typesArtists";
 import { albumInfo } from "@/lib/helpers/data_mapping";
+import artists from "@/lib/data/artistsData";
 
 type Props = {
   listItems: string[];
-  artists: Artist[];
 };
 
-export function InnerList({ listItems, artists }: Props) {
+export function InnerList({ listItems }: Props) {
   const { state, isMobile } = useSidebar();
 
   return (
@@ -57,7 +56,8 @@ export function InnerList({ listItems, artists }: Props) {
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem>
-                <BreadcrumbPage>{artists[1].name}</BreadcrumbPage>
+                {/* Set this to use dynamic artist */}
+                <BreadcrumbPage>{artists[0].name}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -76,7 +76,7 @@ export function InnerList({ listItems, artists }: Props) {
                   <div className="flex gap-2 flex-1 justify-between items-center">
                     <p>{album.albumTitle}</p>
                     <span className="text-xs text-gray-500">
-                      ({album.numberOfSongs} songs)
+                      ({album.numberOfTracks} songs)
                     </span>
                   </div>
 

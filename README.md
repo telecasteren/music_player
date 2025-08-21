@@ -21,12 +21,14 @@ music-project/
 ├── Satori
 │ └── src             / frontend
 │   └── app           / gui
+│   └── assets        / static
 │   └── components    / reusable bits
 │   └── css           / styles
 │   └── lib
 │      └── api        / external content
+│      └── data       / sample content
 │      └── utils
-│ └── src-tauri
+│ └── src-tauri       / backend
 │ └── packages/config
 └── README.md
 ```
@@ -80,6 +82,12 @@ npm install
 
 ```bash
 npm run tauri
+```
+
+**Run server**
+
+```bash
+npx ts-node server.ts
 ```
 
 This will automatically open the app window and all code changes can be seen live.

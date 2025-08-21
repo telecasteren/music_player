@@ -10,8 +10,8 @@ function Home() {
     <main className="min-h-screen flex items-center justify-center">
       <div className="flex flex-col gap-2 items-center">
         <img
-          className="w-42 h-42 rounded-lg"
-          src="src/assets/satori-logo-icon.png"
+          className="w-42 h-42"
+          src="src/assets/satori-logo-icon 1.png"
           alt="satori icon"
         />
         <h1 className="text-4xl">Satori music</h1>
