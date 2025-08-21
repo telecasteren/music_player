@@ -27,6 +27,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { setOpen } = useSidebar();
   // const [artists, setArtists] = React.useState<Artist[]>([]);
 
+  // let visibleName =
+  //   artists.albums.map((album) => album.name).join(", ") || "Unknown album";
+  // const maxLength = 20;
+  // if (visibleName) {
+  //   if (visibleName.length > maxLength) {
+  //     visibleName = visibleName.substring(0, maxLength) + "..";
+  //   }
+  // }
+
   return (
     <Sidebar
       collapsible="icon"
@@ -101,36 +110,44 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </div>
               ) : (
                 artists.flatMap((artist) =>
-                  artist.albums.map((album) => (
-                    <a
-                      href="#"
-                      key={`${artist.name}-${album.name}`}
-                      className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
-                    >
-                      <div className="flex w-full items-center gap-2">
-                        <span>
-                          {album.img?.src ? (
-                            <img
-                              src={album.img.src}
-                              alt={album.img.alt || album.name}
-                              className="w-8 border border-white rounded-sm"
-                            />
-                          ) : (
-                            <div className="w-8 h-8 bg-gray-300 border rounded-sm" />
-                          )}
-                        </span>
-                        <span className="font-medium">
-                          {album.name}
-                          {album.releaseYear && (
-                            <span className="ml-2 text-xs">
-                              ({album.releaseYear})
-                            </span>
-                          )}
-                        </span>
-                        <span className="ml-auto">{artist.name}</span>
-                      </div>
-                    </a>
-                  ))
+                  artist.albums.map((album) => {
+                    const maxLength = 20;
+                    const displayName =
+                      album.name.length > maxLength
+                        ? album.name.substring(0, maxLength) + ".."
+                        : album.name;
+
+                    return (
+                      <a
+                        href="#"
+                        key={`${artist.name}-${album.name}`}
+                        className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
+                      >
+                        <div className="flex w-full items-center gap-2">
+                          <span>
+                            {album.img?.src ? (
+                              <img
+                                src={album.img.src}
+                                alt={album.img.alt || album.name}
+                                className="w-8 border border-white rounded-sm"
+                              />
+                            ) : (
+                              <div className="w-8 h-8 bg-gray-300 border rounded-sm" />
+                            )}
+                          </span>
+                          <span className="font-medium">
+                            {displayName}
+                            {album.releaseYear && (
+                              <span className="ml-2 text-xs">
+                                ({album.releaseYear})
+                              </span>
+                            )}
+                          </span>
+                          <span className="ml-auto">{artist.name}</span>
+                        </div>
+                      </a>
+                    );
+                  })
                 )
               )}
             </SidebarGroupContent>

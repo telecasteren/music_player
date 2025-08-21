@@ -1,5 +1,10 @@
 # TO DO
 
+### General
+
+- Fix the MusicFolderUploader in app-sidebar.tsx: using existing artists for merging properly
+- Make sure server.ts actually adds data to existing with mergeData, not overwriting
+
 ### Content structure
 
 1. Artist | Album | Songs
@@ -10,15 +15,13 @@
 ### Data structure
 
 1. API blueprint
-2. Local folders
 
 ### Features
 
-1. Uploader: upload folder with music files
-2. Drag and drop folders
-3. Sync user with music provider
+- Sync user with music provider
 
 ### Potential features
 
 - Different color schemes
 - Offline mode
+- Drag and drop folders

@@ -81,16 +81,10 @@ npm install
 **Run app**
 
 ```bash
-npm run tauri
+npm run tauri dev server
 ```
 
-**Run server**
-
-```bash
-npx ts-node server.ts
-```
-
-This will automatically open the app window and all code changes can be seen live.
+This will automatically open the app window and all code changes can be seen live. The server will also start and you'll be able to write uploaded folder trees into artistsData.ts. **!NOTE! This will currently overwrite existing data.**
 
 ## Deployment and build
 
