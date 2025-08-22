@@ -16,7 +16,7 @@ const ARTISTS_DATA_PATH = path.join(
 function getExistingArtists() {
   try {
     const file = fs.readFileSync(ARTISTS_DATA_PATH, "utf-8");
-    const match = file.match(/export const artists = (.*);/s);
+    const match = file.match(/const artists\s*=\s*(\[.*\]);/s);
 
     if (match) {
       return JSON.parse(match[1]);
@@ -27,6 +27,11 @@ function getExistingArtists() {
   return [];
 }
 
+app.get("/api/artists", (req, res) => {
+  const existingArtists = getExistingArtists();
+  res.json({ artists: existingArtists });
+});
+
 app.post("/api/update-artists", (req, res) => {
   const { artists } = req.body;
   if (!artists) {
@@ -36,11 +41,11 @@ app.post("/api/update-artists", (req, res) => {
   const existingArtists = getExistingArtists();
   const mergedArtists = mergeArtists(existingArtists, artists);
 
-  const fileContent = `// This file is auto-generated\nexport const artists = ${JSON.stringify(
+  const fileContent = `// This file is auto-generated\nconst artists = ${JSON.stringify(
     mergedArtists,
     null,
     2
-  )};\n`;
+  )};export default artists`;
 
   fs.writeFile(ARTISTS_DATA_PATH, fileContent, (err) => {
     if (err) {

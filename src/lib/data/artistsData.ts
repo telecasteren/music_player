@@ -1,6 +1,6 @@
 const artists = [
   {
-    id: "1",
+    id: 1,
     name: "Chet Baker",
     albums: [
       {

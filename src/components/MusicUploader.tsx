@@ -2,10 +2,9 @@ import React, { useRef, useState } from "react";
 import { Button } from "./ui/button";
 import type { Folder } from "@/lib/data/types/uploader";
 import { folderToArtists } from "@/lib/helpers/transformMusic";
-import type { Artist } from "@/lib/data/types/artists";
 
 type Props = {
-  onData: (artists: Artist[]) => void;
+  onData: () => void;
 };
 
 const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
@@ -53,7 +52,6 @@ const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
     setFolders(folderTree);
 
     const artists = folderToArtists(folderTree);
-    onData(artists);
 
     fetch("http://localhost:4000/api/update-artists", {
       method: "POST",
@@ -64,6 +62,7 @@ const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
       .then((data) => {
         if (data.success) {
           alert("artistsData.ts updated!");
+          onData();
         } else {
           alert("Failed to update artistsData.ts");
         }

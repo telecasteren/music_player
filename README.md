@@ -81,10 +81,18 @@ npm install
 **Run app**
 
 ```bash
-npm run tauri dev server
+npm run dev:all
 ```
 
-This will automatically open the app window and all code changes can be seen live. The server will also start and you'll be able to write uploaded folder trees into artistsData.ts. **!NOTE! This will currently overwrite existing data.**
+This starts both backend and frontend (server and vite).
+
+```bash
+npm run tauri
+```
+
+This starts and launches the app.
+
+Together this will launch the app window, and all code changes can now be seen live. The server will also start and you'll be able to merge new uploads into the **artistsData.ts** structure.
 
 ## Deployment and build
 

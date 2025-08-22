@@ -2,9 +2,7 @@ import * as React from "react";
 import { AudioLines } from "lucide-react";
 import { NavUser } from "@/components/settings/nav-user";
 import MusicFolderUploader from "@/components/MusicUploader";
-// import type { Artist } from "@/lib/data/types/artists";
-import mergeArtists from "@/lib/helpers/mergeArtists";
-import artists from "@/lib/data/artistsData";
+import type { Artist } from "@/lib/data/types/artists";
 import navData from "@/lib/data/sidebarData";
 import {
   Sidebar,
@@ -25,16 +23,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [activeItem, setActiveItem] = React.useState(navData.navMain[0]);
 
   const { setOpen } = useSidebar();
-  // const [artists, setArtists] = React.useState<Artist[]>([]);
+  const [artists, setArtists] = React.useState<Artist[]>([]);
 
-  // let visibleName =
-  //   artists.albums.map((album) => album.name).join(", ") || "Unknown album";
-  // const maxLength = 20;
-  // if (visibleName) {
-  //   if (visibleName.length > maxLength) {
-  //     visibleName = visibleName.substring(0, maxLength) + "..";
-  //   }
-  // }
+  React.useEffect(() => {
+    fetch("http://localhost:4000/api/artists")
+      .then((res) => res.json())
+      .then((data) => setArtists(data.artists));
+  }, []);
 
   return (
     <Sidebar
@@ -153,11 +148,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarGroupContent>
           </SidebarGroup>
           <div className="mt-4 text-sm">
-            <MusicFolderUploader onData={artists} />
-            {/* onData={(newArtists) =>
-              setArtists((prev) => mergeArtists(prev, newArtists))
-            }
-            /> */}
+            <MusicFolderUploader
+              onData={() => {
+                fetch("http://localhost:4000/api/artists")
+                  .then((res) => res.json())
+                  .then((data) => setArtists(data.artists));
+              }}
+            />
           </div>
         </SidebarContent>
       </Sidebar>
