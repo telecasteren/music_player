@@ -1,3 +1,4 @@
+"use client";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Play } from "lucide-react";
 import {
@@ -64,13 +65,19 @@ export function InnerList({ listItems }: Props) {
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4">
-          {albumInfo.map((artist) => (
-            <div className="bg-muted/50 aspect-video h-12 w-full rounded-lg flex items-center">
-              {artist.albums.map((album) => (
-                <div className="flex items-center justify-between gap-4 ml-8 mr-8 w-full">
+          {albumInfo.map((artist, artistIndex) => (
+            <div
+              className="bg-muted/50 aspect-video h-12 w-full rounded-lg flex items-center"
+              key={artistIndex}
+            >
+              {artist.albums.map((album, albumIndex) => (
+                <div
+                  className="flex items-center justify-between gap-4 ml-8 mr-8 w-full"
+                  key={albumIndex}
+                >
                   <img
-                    src={album.imgSrc}
-                    alt={album.imgAlt}
+                    src={album.imgSrc || "src/assets/proxy-image.png"}
+                    alt={album.imgAlt || "Album cover"}
                     className="w-10 border border-white rounded-sm"
                   />
                   <div className="flex gap-2 flex-1 justify-between items-center">

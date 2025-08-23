@@ -12,8 +12,11 @@ export function folderToArtists(folders: Folder[]): Artist[] {
         .filter((child): child is Folder => "children" in child)
         .map((albumFolder) => ({
           name: albumFolder.name,
-          img: undefined,
-          releaseYear: undefined,
+          img: {
+            src: "src/assets/proxy-image.png",
+            alt: "Album cover unknown",
+          },
+          releaseYear: "Unknown",
           tracks: albumFolder.children
             .filter((child): child is MusicFile => "file" in child)
             .map((file) => ({

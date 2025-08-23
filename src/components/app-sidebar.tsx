@@ -3,6 +3,7 @@ import { AudioLines } from "lucide-react";
 import { NavUser } from "@/components/settings/nav-user";
 import MusicFolderUploader from "@/components/MusicUploader";
 import type { Artist } from "@/lib/data/types/artists";
+import artistsData from "@/lib/data/artistsData";
 import navData from "@/lib/data/sidebarData";
 import {
   Sidebar,
@@ -28,7 +29,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   React.useEffect(() => {
     fetch("http://localhost:4000/api/artists")
       .then((res) => res.json())
-      .then((data) => setArtists(data.artists));
+      .then((data) => {
+        if (data?.artists?.length > 0) {
+          setArtists(data.artists);
+        } else {
+          setArtists(artistsData);
+        }
+      })
+      .catch(() => {
+        setArtists(artistsData);
+      });
   }, []);
 
   return (
@@ -94,7 +104,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {/* We disable collapsible and let it fill remaining space */}
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
         <SidebarHeader className="gap-3.5 border-b p-4">
-          <SidebarInput placeholder="Search..." />
+          <SidebarInput placeholder="Search.." />
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="px-0">

@@ -16,6 +16,12 @@ export default function mergeArtists(
         );
 
         if (existingAlbum) {
+          existingAlbum.img = newAlbum.img?.src
+            ? newAlbum.img
+            : existingAlbum.img;
+          existingAlbum.releaseYear =
+            newAlbum.releaseYear ?? existingAlbum.releaseYear;
+
           newAlbum.tracks.forEach((track) => {
             if (!existingAlbum.tracks.some((t) => t.path === track.path)) {
               existingAlbum.tracks.push(track);
