@@ -2,9 +2,6 @@
 
 ### General
 
-- Fix the MusicFolderUploader in app-sidebar.tsx: using existing artists for merging properly
-- Make sure server.ts actually adds data to existing with mergeData, not overwriting
-
 ### Content structure
 
 1. Artist | Album | Songs

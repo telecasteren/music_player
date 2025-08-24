@@ -34,20 +34,21 @@ app.post("/api/upload-music", upload.array("files"), async (req, res) => {
   if (!files || !Array.isArray(files)) {
     return res.status(400).json({ error: "No files uploaded" });
   }
-  const baseDir = path.join(
-    process.cwd(),
-    "backend-data/musicFiles/user_uploads"
-  );
 
+  const relativePaths = req.body.relativePaths;
+  const relPaths = Array.isArray(relativePaths) ? relativePaths : [];
+
+  const baseDir = musicFilesPath;
   const newFilePaths: string[] = [];
 
   try {
-    for (const file of files) {
-      // Multer sets original name to webkitRelativePath if sent that way
-      const relPath = file.originalname;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const relPath = relPaths[i] || file.originalname;
       const destPath = path.join(baseDir, relPath);
       await fsExtra.ensureDir(path.dirname(destPath));
 
+      // Add timestamp if file already exists
       let finalDest = destPath;
       if (fs.existsSync(destPath)) {
         const ext = path.extname(destPath);

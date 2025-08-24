@@ -1,45 +1,46 @@
 import React, { useRef, useState } from "react";
 import { Button } from "./ui/button";
-import type { Folder } from "@/lib/types/uploader";
-import { folderToArtists } from "@/lib/helpers/transformMusic";
+// import type { Folder } from "@/lib/types/uploader";
+// import { folderToArtists } from "@/lib/helpers/transformMusic";
+import { UPLOAD_MUSIC_URL } from "@/lib/config/frontendPaths";
 
 type Props = {
   onData: () => void;
 };
 
 const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
-  const [folders, setFolders] = useState<Folder[]>([]);
+  // const [folders, setFolders] = useState<Folder[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const buildFolderStructure = (files: File[]): Folder[] => {
-    const root: Folder = { name: "root", children: [] };
+  // const buildFolderStructure = (files: File[]): Folder[] => {
+  //   const root: Folder = { name: "root", children: [] };
 
-    files.forEach((file) => {
-      const parts = file.webkitRelativePath.split("/");
-      let current: Folder = root;
+  //   files.forEach((file) => {
+  //     const parts = file.webkitRelativePath.split("/");
+  //     let current: Folder = root;
 
-      parts.forEach((part, index) => {
-        if (index === parts.length - 1) {
-          current.children.push({
-            name: part,
-            path: file.webkitRelativePath,
-            file,
-          });
-        } else {
-          let folder = current.children.find(
-            (child): child is Folder =>
-              "children" in child && child.name === part
-          );
-          if (!folder) {
-            folder = { name: part, children: [] };
-            current.children.push(folder);
-          }
-          current = folder;
-        }
-      });
-    });
-    return root.children as Folder[];
-  };
+  //     parts.forEach((part, index) => {
+  //       if (index === parts.length - 1) {
+  //         current.children.push({
+  //           name: part,
+  //           path: file.webkitRelativePath,
+  //           file,
+  //         });
+  //       } else {
+  //         let folder = current.children.find(
+  //           (child): child is Folder =>
+  //             "children" in child && child.name === part
+  //         );
+  //         if (!folder) {
+  //           folder = { name: part, children: [] };
+  //           current.children.push(folder);
+  //         }
+  //         current = folder;
+  //       }
+  //     });
+  //   });
+  //   return root.children as Folder[];
+  // };
 
   const handleFolderSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -48,23 +49,28 @@ const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
       /\.(mp3|m4a|wav|flac|aac)$/i.test(file.name)
     );
 
-    const folderTree = buildFolderStructure(allFiles);
-    setFolders(folderTree);
+    // const folderTree = buildFolderStructure(allFiles);
+    // setFolders(folderTree);
+    // const artists = folderToArtists(folderTree);
+    const formData = new FormData();
+    allFiles.forEach((file) => {
+      console.log(file.webkitRelativePath);
 
-    const artists = folderToArtists(folderTree);
+      formData.append("files", file);
+      formData.append("files", file.webkitRelativePath);
+    });
 
-    fetch("http://localhost:4000/api/update-artists", {
+    fetch(UPLOAD_MUSIC_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ artists }),
+      body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          alert("artistsData.ts updated!");
+          alert("Music folders uploaded successfully");
           onData();
         } else {
-          alert("Failed to update artistsData.ts");
+          alert("Failed to upload music folders");
         }
       })
       .catch(() => {
@@ -95,7 +101,7 @@ const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
 
       {/* Mockup to see the JSON structure - can be removed when Artist
       is constructed */}
-      <pre>{JSON.stringify(folders, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(folders, null, 2)}</pre> */}
     </div>
   );
 };
