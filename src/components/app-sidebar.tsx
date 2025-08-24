@@ -2,7 +2,7 @@ import * as React from "react";
 import { AudioLines } from "lucide-react";
 import { NavUser } from "@/components/settings/nav-user";
 import MusicFolderUploader from "@/components/MusicUploader";
-import type { Artist } from "@/lib/data/types/artists";
+import type { Artist } from "@/lib/types/artists";
 import artistsData from "@/lib/data/artistsData";
 import navData from "@/lib/data/sidebarData";
 import {

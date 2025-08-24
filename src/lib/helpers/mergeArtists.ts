@@ -1,4 +1,4 @@
-import type { Artist } from "@/lib/data/types/artists";
+import type { Artist } from "@/lib/types/artists";
 
 export default function mergeArtists(
   existing: Artist[],

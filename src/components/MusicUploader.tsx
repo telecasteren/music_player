@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Button } from "./ui/button";
-import type { Folder } from "@/lib/data/types/uploader";
+import type { Folder } from "@/lib/types/uploader";
 import { folderToArtists } from "@/lib/helpers/transformMusic";
 
 type Props = {

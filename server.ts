@@ -2,58 +2,85 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
-import mergeArtists from "./src/lib/helpers/mergeArtists.ts";
+import multer from "multer";
+import fsExtra from "fs-extra";
+import { musicFilesPath } from "./src/lib/config/backendPaths.ts";
+import { scanMusicDirectory } from "./src/lib/helpers/scanMusicDirectory.ts";
+import { updateMusicIndex } from "./src/lib/handlers/uploadHandler.ts";
+
+/**
+ * POST /api/upload-music
+ * Handles uploading of multiple music files.
+ * Saves files to the user uploads directory, ensuring unique filenames if a conflict occurs.
+ * Updates the music index after successful uploads.
+ *
+ * @name UploadMusic
+ * @function
+ * @async
+ * @param {import('express').Request} req - Express request object. Expects files in `req.files`.
+ * @param {import('express').Response} res - Express response object. Responds with JSON.
+ * @returns {Promise<void>} Sends JSON response indicating success or failure.
+ */
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+const upload = multer({ storage: multer.memoryStorage() });
 
-const ARTISTS_DATA_PATH = path.join(
-  process.cwd(),
-  "src/lib/data/artistsData.ts"
-);
+app.use("/music", express.static(musicFilesPath));
 
-function getExistingArtists() {
-  try {
-    const file = fs.readFileSync(ARTISTS_DATA_PATH, "utf-8");
-    const match = file.match(/const artists\s*=\s*(\[.*\]);/s);
-
-    if (match) {
-      return JSON.parse(match[1]);
-    }
-  } catch (error) {
-    console.error(`Couldn't read artistsData.ts: ${error.message}`);
+app.post("/api/upload-music", upload.array("files"), async (req, res) => {
+  const files = req.files;
+  if (!files || !Array.isArray(files)) {
+    return res.status(400).json({ error: "No files uploaded" });
   }
-  return [];
-}
+  const baseDir = path.join(
+    process.cwd(),
+    "backend-data/musicFiles/user_uploads"
+  );
 
-app.get("/api/artists", (req, res) => {
-  const existingArtists = getExistingArtists();
-  res.json({ artists: existingArtists });
+  const newFilePaths: string[] = [];
+
+  try {
+    for (const file of files) {
+      // Multer sets original name to webkitRelativePath if sent that way
+      const relPath = file.originalname;
+      const destPath = path.join(baseDir, relPath);
+      await fsExtra.ensureDir(path.dirname(destPath));
+
+      let finalDest = destPath;
+      if (fs.existsSync(destPath)) {
+        const ext = path.extname(destPath);
+        const name = path.basename(destPath, ext);
+        finalDest = path.join(
+          path.dirname(destPath),
+          `${name}_${Date.now()}${ext}`
+        );
+      }
+      await fsExtra.writeFile(finalDest, file.buffer);
+
+      newFilePaths.push(relPath);
+    }
+
+    await updateMusicIndex(newFilePaths);
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Failed to save uploaded files:", err);
+    res.status(500).json({ error: "Failed to save uploaded files" });
+  }
 });
 
-app.post("/api/update-artists", (req, res) => {
-  const { artists } = req.body;
-  if (!artists) {
-    return res.status(400).json({ error: "Artists data not provided" });
-  }
-
-  const existingArtists = getExistingArtists();
-  const mergedArtists = mergeArtists(existingArtists, artists);
-
-  const fileContent = `// This file is auto-generated\nconst artists = ${JSON.stringify(
-    mergedArtists,
-    null,
-    2
-  )};export default artists`;
-
-  fs.writeFile(ARTISTS_DATA_PATH, fileContent, (err) => {
-    if (err) {
-      console.error("Failed to write artistsData.ts:", err);
-      return res.status(500).json({ error: "Failed to update artistsData.ts" });
+app.get("/api/artists", (req, res) => {
+  try {
+    if (!fs.existsSync(musicFilesPath)) {
+      return res.json({ artists: [] });
     }
-    res.json({ success: true, message: "artistsData.ts updated successfully" });
-  });
+    const artists = scanMusicDirectory(musicFilesPath);
+    res.json({ artists });
+  } catch (err) {
+    console.error("Failed to scan music directory:", err);
+    res.status(500).json({ error: "Failed to scan music directory" });
+  }
 });
 
 const PORT = 4000;

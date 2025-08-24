@@ -3,8 +3,10 @@ import App from "./App";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import "@/css/index.css";
-import { tracks } from "@/lib/helpers/data_mapping";
+import { getTracks } from "@/lib/helpers/data_mapping";
 import useSkipBtnTooltip from "@/components/controls/skipBtnTooltip";
+
+const tracks = await getTracks();
 
 const AppWrapper = () => {
   const [currentTrackIdx, setCurrentTrackIdx] = React.useState(0);

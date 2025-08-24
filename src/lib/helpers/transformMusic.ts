@@ -1,5 +1,5 @@
-import type { Folder, MusicFile } from "@/lib/data/types/uploader";
-import type { Artist } from "@/lib/data/types/artists";
+import type { Folder, MusicFile } from "@/lib/types/uploader";
+import type { Artist } from "@/lib/types/artists";
 
 export function folderToArtists(folders: Folder[]): Artist[] {
   let idCount = 1;
