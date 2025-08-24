@@ -1,63 +1,25 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { Button } from "./ui/button";
-// import type { Folder } from "@/lib/types/uploader";
-// import { folderToArtists } from "@/lib/helpers/transformMusic";
 import { UPLOAD_MUSIC_URL } from "@/lib/config/frontendPaths";
+import { pickAndReadFolder } from "@/lib/handlers/pickAndReadFolder";
 
 type Props = {
   onData: () => void;
 };
 
 const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
-  // const [folders, setFolders] = useState<Folder[]>([]);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const triggerFileSelect = async () => {
+    const files = await pickAndReadFolder();
+    if (!files) return;
 
-  // const buildFolderStructure = (files: File[]): Folder[] => {
-  //   const root: Folder = { name: "root", children: [] };
-
-  //   files.forEach((file) => {
-  //     const parts = file.webkitRelativePath.split("/");
-  //     let current: Folder = root;
-
-  //     parts.forEach((part, index) => {
-  //       if (index === parts.length - 1) {
-  //         current.children.push({
-  //           name: part,
-  //           path: file.webkitRelativePath,
-  //           file,
-  //         });
-  //       } else {
-  //         let folder = current.children.find(
-  //           (child): child is Folder =>
-  //             "children" in child && child.name === part
-  //         );
-  //         if (!folder) {
-  //           folder = { name: part, children: [] };
-  //           current.children.push(folder);
-  //         }
-  //         current = folder;
-  //       }
-  //     });
-  //   });
-  //   return root.children as Folder[];
-  // };
-
-  const handleFolderSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return;
-
-    const allFiles = Array.from(event.target.files).filter((file) =>
-      /\.(mp3|m4a|wav|flac|aac)$/i.test(file.name)
-    );
-
-    // const folderTree = buildFolderStructure(allFiles);
-    // setFolders(folderTree);
-    // const artists = folderToArtists(folderTree);
     const formData = new FormData();
-    allFiles.forEach((file) => {
-      console.log(file.webkitRelativePath);
+    files.forEach(({ path, data }) => {
+      const arrayBuffer =
+        data instanceof ArrayBuffer ? data : new Uint8Array(data).buffer;
+      const uint8 = new Uint8Array(arrayBuffer);
+      const blob = new Blob([uint8], { type: "audio/mpeg" });
 
-      formData.append("files", file);
-      formData.append("files", file.webkitRelativePath);
+      formData.append("files", blob, path);
     });
 
     fetch(UPLOAD_MUSIC_URL, {
@@ -78,10 +40,6 @@ const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
       });
   };
 
-  const triggerFileSelect = () => {
-    fileInputRef.current?.click();
-  };
-
   return (
     <div>
       <Button
@@ -90,18 +48,6 @@ const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
       >
         Upload music
       </Button>
-      <input
-        ref={fileInputRef}
-        type="file"
-        multiple
-        style={{ display: "none" }}
-        {...({ webkitdirectory: "" } as React.HTMLProps<HTMLInputElement>)}
-        onChange={handleFolderSelect}
-      />
-
-      {/* Mockup to see the JSON structure - can be removed when Artist
-      is constructed */}
-      {/* <pre>{JSON.stringify(folders, null, 2)}</pre> */}
     </div>
   );
 };

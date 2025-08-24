@@ -22,7 +22,7 @@ const AppWrapper = () => {
       {/* Audio Player */}
       <div className="audio_wrapper fixed bottom-0 left-0 w-full z-[9999] shadow-lg">
         <AudioPlayer
-          autoPlay
+          // autoPlay
           src={tracks[currentTrackIdx]}
           onPlay={() => console.log("Playing!")}
           onEnded={() => setCurrentTrackIdx((idx) => (idx + 1) % tracks.length)}

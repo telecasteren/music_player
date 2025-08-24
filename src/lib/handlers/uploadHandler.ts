@@ -1,13 +1,8 @@
 import { parseFile } from "music-metadata";
 import fs from "fs";
 import path from "path";
-import { musicFilesPath } from "../config/backendPaths.ts";
+import { musicFilesPath, INDEX_PATH } from "../config/backendPaths.ts";
 import type { MusicIndexEntry } from "@/lib/types/MusicIndexEntry";
-
-const INDEX_PATH = path.join(
-  process.cwd(),
-  "backend-data/musicFiles/metadata/userMusicIndex.json"
-);
 
 export async function updateMusicIndex(newFiles: string[]) {
   let index: MusicIndexEntry[] = [];
@@ -16,7 +11,37 @@ export async function updateMusicIndex(newFiles: string[]) {
     index = JSON.parse(fs.readFileSync(INDEX_PATH, "utf-8"));
   }
 
+  const audioExtensions = [
+    ".mp3",
+    ".m4a",
+    ".wav",
+    ".flac",
+    ".aac",
+    ".ogg",
+    ".aiff",
+    ".alac",
+  ];
+  const imageExtensions = [".jpg", ".jpeg", ".png", ".webp"];
+
+  const albumCovers: Record<string, string> = {};
   for (const filePath of newFiles) {
+    const ext = path.extname(filePath).toLowerCase();
+    if (imageExtensions.includes(ext)) {
+      const parts = filePath.split(path.sep);
+      const artist = parts[0];
+      const album = parts[1];
+      if (artist && album) {
+        albumCovers[`${artist}/${album}`] = filePath;
+      }
+    }
+  }
+
+  for (const filePath of newFiles) {
+    const ext = path.extname(filePath).toLowerCase();
+    if (!audioExtensions.includes(ext)) {
+      continue;
+    }
+
     const parts = filePath.split(path.sep);
     const artist = parts[0];
     const album = parts[1];
@@ -24,6 +49,7 @@ export async function updateMusicIndex(newFiles: string[]) {
 
     let title = fileName;
     let duration = null;
+    const img = albumCovers[`${artist}/${album}`] || null;
 
     try {
       const metadata = await parseFile(path.join(musicFilesPath, filePath));
@@ -34,7 +60,15 @@ export async function updateMusicIndex(newFiles: string[]) {
     }
 
     if (!index.some((entry) => entry.path === filePath)) {
-      index.push({ artist, album, fileName, path: filePath, title, duration });
+      index.push({
+        artist,
+        album,
+        fileName,
+        path: filePath,
+        title,
+        duration,
+        img,
+      });
     }
   }
 

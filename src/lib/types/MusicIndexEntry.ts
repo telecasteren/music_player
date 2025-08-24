@@ -5,4 +5,5 @@ export interface MusicIndexEntry {
   path: string;
   title: string;
   duration: number | null;
+  img: string | null;
 }

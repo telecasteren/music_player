@@ -1,17 +1,17 @@
 # TO DO
 
-### General
+### Ongoing / Next up
 
-### Content structure
+- Create folder structure for uploaded music folder trees
+- Append cover img to artists metadata
+- Base InnerList on data and active nav-items
 
-1. Artist | Album | Songs
-2. Saved: Albums | Playlists
-3. Events
-4. User
+## Futuristic
 
 ### Data structure
 
 1. API blueprint
+2. Music provider select/sync
 
 ### Features
 
@@ -20,5 +20,5 @@
 ### Potential features
 
 - Different color schemes
-- Offline mode
-- Drag and drop folders
+- Offline mode (music provider APIs)
+- Drag and drop folders ?
