@@ -7,7 +7,7 @@
     "dev": "vite",
     "dev:all": "concurrently \"npm run server\" \"npm run dev\"",
     "server": "ts-node server.ts",
-    "tauri": "tauri",
+    "tauri": "tauri dev",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

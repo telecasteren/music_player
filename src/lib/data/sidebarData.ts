@@ -1,18 +1,22 @@
-import { Library, Heart, ListMusic } from "lucide-react";
+import { Library, ListMusic, Ticket, Music2 } from "lucide-react";
 
 const navData = {
   navMain: [
     {
-      title: "Library",
-      icon: Library,
+      title: "Artists",
+      icon: Music2,
     },
     {
-      title: "Favorites",
-      icon: Heart,
+      title: "Albums",
+      icon: Library,
     },
     {
       title: "Playlists",
       icon: ListMusic,
+    },
+    {
+      title: "Events",
+      icon: Ticket,
     },
   ],
   user: {

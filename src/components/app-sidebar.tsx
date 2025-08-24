@@ -6,6 +6,11 @@ import type { Artist } from "@/lib/data/types/artists";
 import artistsData from "@/lib/data/artistsData";
 import navData from "@/lib/data/sidebarData";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -140,15 +145,30 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                               <div className="w-8 h-8 bg-gray-300 border rounded-sm" />
                             )}
                           </span>
-                          <span className="font-medium">
-                            {displayName}
-                            {album.releaseYear && (
-                              <span className="ml-2 text-xs">
-                                ({album.releaseYear})
-                              </span>
-                            )}
-                          </span>
-                          <span className="ml-auto">{artist.name}</span>
+                          <SidebarMenuButton asChild>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span className="font-medium">
+                                  {displayName}
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent side="top">
+                                {album.name}
+                              </TooltipContent>
+                            </Tooltip>
+                          </SidebarMenuButton>
+                          <SidebarMenuButton asChild>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span className="ml-auto font-medium">
+                                  {artist.name}
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent side="top">
+                                {artist.name}
+                              </TooltipContent>
+                            </Tooltip>
+                          </SidebarMenuButton>
                         </div>
                       </a>
                     );

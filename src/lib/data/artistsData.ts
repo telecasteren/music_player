@@ -5,7 +5,7 @@ const artists = [
     name: "Chet Baker",
     albums: [
       {
-        name: "Chet Baker Sings_ It Could Happen to You (Original Jazz Classics Remasters)",
+        name: "Chet Baker Sings (Original Jazz Classics Remasters)",
         img: {
           src: "src/assets/chetBaker.jpg",
           alt: "Album cover",
