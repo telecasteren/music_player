@@ -1,7 +1,6 @@
 // This file is auto-generated
 const artists = [
   {
-    id: 1,
     name: "Chet Baker",
     albums: [
       {
@@ -10,7 +9,6 @@ const artists = [
           src: "src/assets/chetBaker.jpg",
           alt: "Album cover",
         },
-        releaseYear: "",
         tracks: [
           {
             title: "07 Everything Happens to Me (Remastered)",

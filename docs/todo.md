@@ -2,7 +2,6 @@
 
 ### Ongoing / Next up
 
-- Base InnerList on data and active nav-items
 - Create folder trees for uploaded music files
 - Disable Autoplay upon app startup
 

@@ -2,9 +2,9 @@ import * as React from "react";
 import { AudioLines } from "lucide-react";
 import { NavUser } from "@/components/settings/nav-user";
 import MusicFolderUploader from "@/components/MusicUploader";
-import type { Artist } from "@/lib/types/artists";
-import artistsData from "@/lib/data/artistsData";
+import type { Artist } from "@/lib/types/artistsEntry";
 import navData from "@/lib/data/sidebarData";
+import { useSelectedArtist } from "@/hooks/useSelectedArtist";
 import {
   Tooltip,
   TooltipContent,
@@ -27,9 +27,9 @@ import {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // Now state is used to set item active -- use the url/router
   const [activeItem, setActiveItem] = React.useState(navData.navMain[0]);
-
   const { setOpen } = useSidebar();
   const [artists, setArtists] = React.useState<Artist[]>([]);
+  const { setSelectedArtist, setSelectedAlbum } = useSelectedArtist();
 
   React.useEffect(() => {
     fetch("http://localhost:4000/api/artists")
@@ -38,13 +38,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         if (data?.artists?.length > 0) {
           setArtists(data.artists);
         } else {
-          setArtists(artistsData);
-          console.log("No artists found from API, using fallback data.");
+          console.log("No artists found from API.");
         }
       })
       .catch(() => {
-        setArtists(artistsData);
-        console.log("Failed to fetch artists, using fallback data.");
+        throw new Error("Failed to fetch artists");
       });
   }, []);
 
@@ -108,7 +106,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarFooter>
       </Sidebar>
 
-      {/* We disable collapsible and let it fill remaining space */}
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
         <SidebarHeader className="gap-3.5 border-b p-4">
           <SidebarInput placeholder="Search.." />
@@ -120,7 +117,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <div className="p-4 text-muted-foreground text-sm">
                   Upload music to see your library here.
                 </div>
-              ) : (
+              ) : activeItem?.title === "Albums" ? (
+                // Show albums list with artist name
                 artists.flatMap((artist) =>
                   artist.albums.map((album) => {
                     const maxLength = 20;
@@ -134,6 +132,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         href="#"
                         key={`${artist.name}-${album.name}`}
                         className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
+                        onClick={() => {
+                          setSelectedArtist(artist);
+                          setSelectedAlbum(album);
+                        }}
                       >
                         <div className="flex w-full items-center gap-2">
                           <span>
@@ -178,7 +180,33 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     );
                   })
                 )
-              )}
+              ) : activeItem?.title === "Artists" ? (
+                // Show artists list
+                artists.map((artist) => (
+                  <a
+                    href="#"
+                    key={artist.name}
+                    className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
+                    onClick={() => {
+                      setSelectedArtist(artist);
+                      setSelectedAlbum(null);
+                    }}
+                  >
+                    <div className="flex w-full items-center gap-2">
+                      <SidebarMenuButton asChild>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <span className="font-medium">{artist.name}</span>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            {artist.name}
+                          </TooltipContent>
+                        </Tooltip>
+                      </SidebarMenuButton>
+                    </div>
+                  </a>
+                ))
+              ) : null}
             </SidebarGroupContent>
           </SidebarGroup>
           <div className="mt-4 text-sm">

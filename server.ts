@@ -4,13 +4,9 @@ import fs from "fs";
 import path from "path";
 import multer from "multer";
 import fsExtra from "fs-extra";
-import { fileURLToPath } from "url";
 import { musicFilesPath } from "./src/lib/config/backendPaths.ts";
 import { scanMusicDirectory } from "./src/lib/helpers/scanMusicDirectory.ts";
 import { updateMusicIndex } from "./src/lib/handlers/uploadHandler.ts";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 /**
  * POST /api/upload-music

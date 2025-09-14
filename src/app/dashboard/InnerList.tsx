@@ -1,6 +1,8 @@
 "use client";
 import { AppSidebar } from "@/components/app-sidebar";
-import { Play } from "lucide-react";
+import { SelectedArtistDataProvider } from "@/context/SelectedArtistDataProvider";
+import { useSelectedArtist } from "@/hooks/useSelectedArtist";
+import { Play, CircleArrowLeft } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,15 +19,15 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { albumInfo } from "@/lib/helpers/data_mapping";
-import artists from "@/lib/data/artistsData";
 
 type Props = {
   listItems: string[];
 };
 
-export function InnerList({ listItems }: Props) {
+function InnerList({ listItems }: Props) {
   const { state, isMobile } = useSidebar();
+  const { selectedArtist, setSelectedArtist, selectedAlbum, setSelectedAlbum } =
+    useSelectedArtist();
 
   return (
     <>
@@ -57,34 +59,35 @@ export function InnerList({ listItems }: Props) {
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem>
-                {/* Set this to use dynamic artist */}
-                <BreadcrumbPage>{artists[0].name}</BreadcrumbPage>
+                <BreadcrumbPage>{selectedArtist?.name}</BreadcrumbPage>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{selectedAlbum?.name}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4">
-          {albumInfo.map((artist, artistIndex) => (
-            <div
-              className="bg-muted/50 aspect-video h-12 w-full rounded-lg flex items-center"
-              key={artistIndex}
-            >
-              {artist.albums.map((album, albumIndex) => (
-                <div
-                  className="flex items-center justify-between gap-4 ml-8 mr-8 w-full"
-                  key={albumIndex}
-                >
+          {selectedAlbum ? (
+            selectedAlbum.tracks.map((track, trackIndex) => (
+              <div
+                className="bg-muted/50 aspect-video h-12 w-full rounded-lg flex items-center mb-2"
+                key={trackIndex}
+              >
+                <div className="flex items-center justify-between gap-4 ml-8 mr-8 w-full">
                   <img
-                    src={album.imgSrc || "src/assets/proxy-image.png"}
-                    alt={album.imgAlt || "Album cover"}
+                    src={selectedAlbum.img?.src || "src/assets/proxy-image.png"}
+                    alt={
+                      selectedAlbum.img?.alt ||
+                      selectedAlbum.name ||
+                      "Album cover"
+                    }
                     className="w-10 border border-white rounded-sm"
                   />
                   <div className="flex gap-2 flex-1 justify-between items-center">
-                    <p>{album.albumTitle}</p>
-                    <span className="text-xs text-gray-500">
-                      ({album.numberOfTracks} songs)
-                    </span>
+                    <p>{track.name}</p>
                   </div>
 
                   <Button className="group flex items-center gap-2 cursor-pointer">
@@ -92,11 +95,59 @@ export function InnerList({ listItems }: Props) {
                     <span className="sr-only">Play</span>
                   </Button>
                 </div>
-              ))}
+              </div>
+            ))
+          ) : selectedArtist ? (
+            selectedArtist.albums.map((album, albumIndex) => (
+              <div
+                className="bg-muted/50 aspect-video h-12 w-full rounded-lg flex items-center mb-2"
+                key={albumIndex}
+              >
+                <a
+                  href="#"
+                  key={`${selectedArtist.name}-${album.name}`}
+                  className="flex items-center justify-between gap-4 w-full"
+                  onClick={() => {
+                    setSelectedArtist(selectedArtist);
+                    setSelectedAlbum(album);
+                  }}
+                >
+                  <div className="flex items-center justify-between gap-4 ml-8 mr-8 w-full">
+                    <img
+                      src={album.img?.src || "src/assets/proxy-image.png"}
+                      alt={album.img?.alt || album.name || "Album cover"}
+                      className="w-10 border border-white rounded-sm"
+                    />
+                    <div className="flex gap-2 flex-1 justify-between items-center">
+                      <p>{album.name}</p>
+                      <span className="text-xs text-gray-500">
+                        ({album.tracks?.length || 0} songs)
+                      </span>
+                    </div>
+
+                    <Button className="group flex items-center gap-2 cursor-pointer">
+                      <Play className="w-4 h-4 text-gray-900 group-hover:text-gray-500" />
+                      <span className="sr-only">Play</span>
+                    </Button>
+                  </div>
+                </a>
+              </div>
+            ))
+          ) : (
+            <div className="flex items-center gap-2 mx-auto">
+              <CircleArrowLeft /> Select music from the catalog.
             </div>
-          ))}
+          )}
         </div>
       </SidebarInset>
     </>
+  );
+}
+
+export function InnerListWithProvider(props: Props) {
+  return (
+    <SelectedArtistDataProvider>
+      <InnerList {...props} />
+    </SelectedArtistDataProvider>
   );
 }

@@ -10,7 +10,9 @@ export async function getTracks() {
     const artists: Artist[] = data.artists;
     return artists.flatMap((artist) =>
       artist.albums.flatMap((album) =>
-        album.songs.map((song) => `${BASE_URL}${encodeURIComponent(song.path)}`)
+        album.tracks.map(
+          (track) => `${BASE_URL}${encodeURIComponent(track.path)}`
+        )
       )
     );
   }
@@ -24,7 +26,6 @@ export const albumInfo = artists.map((artist) => ({
     imgSrc: album.img.src,
     imgAlt: album.img.alt,
     albumTitle: album.name,
-    releaseYear: album.releaseYear,
     numberOfTracks: album.tracks.length,
   })),
 }));
@@ -36,7 +37,6 @@ export const albumsList = artists.flatMap((artist) =>
     imgSrc: album.img.src,
     imgAlt: album.img.alt,
     albumTitle: album.name,
-    releaseYear: album.releaseYear,
     numberOfTracks: album.tracks.length,
   }))
 );

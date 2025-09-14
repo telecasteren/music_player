@@ -53,7 +53,7 @@ export function scanMusicDirectory(dirPath: string): Artist[] {
       const albumObj: Album = {
         name: albumDir.name,
         img,
-        songs: files.map((f) => ({
+        tracks: files.map((f) => ({
           name: f.name,
           path: path.relative(musicFilesPath, path.join(albumPath, f.name)),
         })),
