@@ -39,10 +39,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           setArtists(data.artists);
         } else {
           setArtists(artistsData);
+          console.log("No artists found from API, using fallback data.");
         }
       })
       .catch(() => {
         setArtists(artistsData);
+        console.log("Failed to fetch artists, using fallback data.");
       });
   }, []);
 
@@ -137,7 +139,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           <span>
                             {album.img?.src ? (
                               <img
-                                src={album.img.src}
+                                src={
+                                  album.img.src || "src/assets/proxy-image.png"
+                                }
                                 alt={album.img.alt || album.name}
                                 className="w-8 border border-white rounded-sm"
                               />

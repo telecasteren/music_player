@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:all": "concurrently \"npm run server\" \"npm run dev\"",
+    "dev:all": "concurrently \"npm run server\" \"npm run tauri\"",
     "server": "ts-node server.ts",
     "tauri": "tauri dev",
     "build": "tsc -b && vite build",

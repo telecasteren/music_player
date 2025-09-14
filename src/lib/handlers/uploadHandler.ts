@@ -23,15 +23,25 @@ export async function updateMusicIndex(newFiles: string[]) {
   ];
   const imageExtensions = [".jpg", ".jpeg", ".png", ".webp"];
 
+  const albumFolders = new Set<string>();
+  for (const filePath of newFiles) {
+    const ext = path.extname(filePath).toLowerCase();
+    if (audioExtensions.includes(ext)) {
+      const albumFolder = path.dirname(filePath);
+      albumFolders.add(albumFolder);
+    }
+  }
+
   const albumCovers: Record<string, string> = {};
   for (const filePath of newFiles) {
     const ext = path.extname(filePath).toLowerCase();
     if (imageExtensions.includes(ext)) {
-      const parts = filePath.split(path.sep);
-      const artist = parts[0];
-      const album = parts[1];
-      if (artist && album) {
-        albumCovers[`${artist}/${album}`] = filePath;
+      for (const albumFolder of albumFolders) {
+        if (filePath.startsWith(albumFolder + path.sep)) {
+          if (!albumCovers[albumFolder]) {
+            albumCovers[albumFolder] = filePath;
+          }
+        }
       }
     }
   }
@@ -49,7 +59,8 @@ export async function updateMusicIndex(newFiles: string[]) {
 
     let title = fileName;
     let duration = null;
-    const img = albumCovers[`${artist}/${album}`] || null;
+    const albumFolder = path.dirname(filePath);
+    const img = albumCovers[albumFolder] || "src/assets/proxy-image.png";
 
     try {
       const metadata = await parseFile(path.join(musicFilesPath, filePath));
