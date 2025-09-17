@@ -8,24 +8,36 @@
 
 ### Description
 
-A simple audio player for playing music, and exposing saved catalogues/playlists for browsing. It's being built as a native desktop app for the fun of learning and convenient personal use. When it is up and running, I plan to make a web version of the app--hopefully that can work with a shared backend logic. My goal will be using the adapter pattern to interact with multiple music providers, by translating their APIs into a common interface that's easier to maintain.
+A simple audio player for playing music, and exposing saved catalogues. Built for the enjoyment of learning and the want and need of a more custom audio player without all the fuzz.
+
+**Current state:**
+Upload your local music folders, and the app will recreate the folder structure and expose them for you in a intuitive catalogue for navigating and listening.
+
+**Coming:**
+
+- The ability to create playlists
+- The ability to synchronise with your favourite music stream provider
+- The ability to search for events in your country
 
 ---
 
 ### Workspace structure
 
-This is project is maintained as a monorepo. So all parts of the application live in this repository. I find it easier to share the API logic etc between the web and native apps, keeping dependencies in sync and being able to test both side by side.
+This is project is maintained as a monorepo. So all parts of the application live in this repository.
 
 ```bash
 music-project/
 ├── Satori
+│ └── backendData     / backend data - user uploads + dev data
 │ └── src             / frontend
 │   └── app           / gui
 │   └── assets        / static
 │   └── components    / reusable bits
+│   └── context       / createContext
 │   └── css           / styles
+│   └── hooks         / hooks
 │   └── lib
-│      └── api        / external content
+│      └── api        / external content (not implemented yet)
 │      └── data       / sample content
 │      └── utils
 │ └── src-tauri       / backend
@@ -82,17 +94,16 @@ npm install
 
 ```bash
 npm run dev:all
+
 ```
 
-This starts both backend and frontend (server and vite).
+This starts both backend and frontend (server, tauri and vite).
 
 ```bash
 npm run tauri
 ```
 
-This starts and launches the app.
-
-Together this will launch the app window, and all code changes can now be seen live. The server will also start and you'll be able to merge new uploads into the **artistsData.ts** structure.
+This starts and launches the app with Tauri and Vite only.
 
 ## Deployment and build
 

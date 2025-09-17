@@ -35,8 +35,13 @@ app.post("/api/upload-music", upload.array("files"), async (req, res) => {
     return res.status(400).json({ error: "No files uploaded" });
   }
 
-  const relativePaths = req.body.relativePaths;
-  const relPaths = Array.isArray(relativePaths) ? relativePaths : [];
+  const relPaths = Array.isArray(req.body.relativePaths)
+    ? req.body.relativePaths
+    : req.body.relativePaths
+    ? [req.body.relativePaths]
+    : [];
+  console.log("Received files:", files.length);
+  console.log("Received relative paths:", relPaths);
 
   const baseDir = musicFilesPath;
   const newFilePaths: string[] = [];

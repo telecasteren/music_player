@@ -13,14 +13,35 @@ const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
     if (!files) return;
 
     const formData = new FormData();
-    files.forEach(({ path, data }) => {
-      const arrayBuffer =
-        data instanceof ArrayBuffer ? data : new Uint8Array(data).buffer;
-      const uint8 = new Uint8Array(arrayBuffer);
-      const blob = new Blob([uint8], { type: "audio/mpeg" });
+    const relativePaths: string[] = [];
 
+    files.forEach(({ path, data }) => {
+      console.log(
+        "typeof data:",
+        typeof data,
+        "instanceof ArrayBuffer:",
+        data instanceof ArrayBuffer,
+        "instanceof Uint8Array:",
+        data instanceof Uint8Array
+      );
+
+      let uint8: Uint8Array;
+      if (data instanceof Uint8Array) {
+        uint8 = data;
+      } else if (data instanceof ArrayBuffer) {
+        uint8 = new Uint8Array(data);
+      } else if (ArrayBuffer.isView(data)) {
+        uint8 = new Uint8Array(data.buffer);
+      } else {
+        throw new Error("Unsupported data type for file upload");
+      }
+      const blob = new Blob([uint8], { type: "audio/mpeg" });
       formData.append("files", blob, path);
+      relativePaths.push(path);
     });
+    relativePaths.forEach((relPath) =>
+      formData.append("relativePaths", relPath)
+    );
 
     fetch(UPLOAD_MUSIC_URL, {
       method: "POST",

@@ -2,8 +2,20 @@
 
 ### Ongoing / Next up
 
-- Create folder trees for uploaded music files
-- Disable Autoplay upon app startup
+- Some UI improvements and flow:
+
+  - Breadcrumb view
+  - Artist/Album navigation hot links
+  - Play specific song upon clicking play btn on song
+  - Play specific album from first song upon clicking play btn on album
+
+  ### Other features
+
+  - Expose link to Ticketmaster in Events
+  - Enable making Playlists
+    - expose an all songs list?
+    - mark songs to add to playlist?
+    - number of playlists restrictions?
 
 ## Futuristic
 
@@ -16,5 +28,4 @@
 ### Potential features
 
 - Different color schemes
-- Offline mode (music provider APIs)
 - Toggle music provider + local folders

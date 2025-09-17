@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "artist": "01 Tokyo CafÃÂ©.mp3",
+    "path": "01 Tokyo CafÃÂ©.mp3",
+    "title": "Tokyo CafÃ©",
+    "duration": 153.46938775510205,
+    "img": "src/assets/proxy-image.png"
+  },
+  {
+    "artist": "TVARI",
+    "album": "Album #1",
+    "fileName": "01 Tokyo CafÃ©.mp3",
+    "path": "TVARI/Album #1/01 Tokyo CafÃ©.mp3",
+    "title": "Tokyo CafÃ©",
+    "duration": 153.46938775510205,
+    "img": "src/assets/proxy-image.png"
+  }
+]

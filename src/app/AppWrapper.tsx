@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import App from "./App";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
@@ -9,7 +9,7 @@ import useSkipBtnTooltip from "@/components/controls/skipBtnTooltip";
 const tracks = await getTracks();
 
 const AppWrapper = () => {
-  const [currentTrackIdx, setCurrentTrackIdx] = React.useState(0);
+  const [currentTrackIdx, setCurrentTrackIdx] = useState(0);
 
   useSkipBtnTooltip();
 
@@ -24,11 +24,11 @@ const AppWrapper = () => {
         <AudioPlayer
           autoPlay
           src={tracks[currentTrackIdx]}
-          onPlay={() =>
+          onPlay={() => {
             console.log(
               `Playing track: ${tracks[currentTrackIdx]} nr: ${currentTrackIdx}`
-            )
-          }
+            );
+          }}
           onEnded={() => setCurrentTrackIdx((idx) => (idx + 1) % tracks.length)}
           progressJumpSteps={{ forward: 0, backward: 0 }}
           showSkipControls
