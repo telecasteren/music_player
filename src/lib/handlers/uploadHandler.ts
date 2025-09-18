@@ -58,14 +58,18 @@ export async function updateMusicIndex(newFiles: string[]) {
     const fileName = parts[2];
 
     let title = fileName;
-    let duration = null;
+    let duration: number = 0;
     const albumFolder = path.dirname(filePath);
     const img = albumCovers[albumFolder] || "src/assets/proxy-image.png";
 
     try {
       const metadata = await parseFile(path.join(musicFilesPath, filePath));
       title = metadata.common.title || fileName;
-      duration = metadata.format.duration || duration;
+      duration =
+        typeof metadata.format.duration === "number" &&
+        !isNaN(metadata.format.duration)
+          ? metadata.format.duration
+          : 0;
     } catch (error) {
       console.error("Error when parsing file:", filePath, error);
     }

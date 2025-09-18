@@ -41,7 +41,6 @@ app.post("/api/upload-music", upload.array("files"), async (req, res) => {
     ? [req.body.relativePaths]
     : [];
   console.log("Received files:", files.length);
-  console.log("Received relative paths:", relPaths);
 
   const baseDir = musicFilesPath;
   const newFilePaths: string[] = [];

@@ -121,7 +121,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 // Show albums list with artist name
                 artists.flatMap((artist) =>
                   artist.albums.map((album) => {
-                    const maxLength = 20;
+                    const maxLength = 25;
                     const displayName =
                       album.name.length > maxLength
                         ? album.name.substring(0, maxLength) + ".."
@@ -159,19 +159,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 </span>
                               </TooltipTrigger>
                               <TooltipContent side="top">
-                                {album.name}
-                              </TooltipContent>
-                            </Tooltip>
-                          </SidebarMenuButton>
-                          <SidebarMenuButton asChild>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <span className="ml-auto font-medium">
-                                  {artist.name}
-                                </span>
-                              </TooltipTrigger>
-                              <TooltipContent side="top">
-                                {artist.name}
+                                <b>{artist.name}</b> - {album.name}
                               </TooltipContent>
                             </Tooltip>
                           </SidebarMenuButton>

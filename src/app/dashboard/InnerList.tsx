@@ -88,6 +88,8 @@ function InnerList({ listItems }: Props) {
                   />
                   <div className="flex gap-2 flex-1 justify-between items-center">
                     <p>{track.name}</p>
+                    <p>{track.duration || "0:00"}</p>{" "}
+                    {/* Make sure duration is always displayed */}
                   </div>
 
                   <Button className="group flex items-center gap-2 cursor-pointer">

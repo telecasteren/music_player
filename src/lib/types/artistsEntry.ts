@@ -1,4 +1,4 @@
-export type Track = { name: string; path: string };
+export type Track = { name: string; path: string; duration: number };
 export type Album = {
   name: string;
   img: { src: string; alt: string };
