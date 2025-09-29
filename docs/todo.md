@@ -5,8 +5,6 @@
 - Some UI improvements and flow:
 
   - Artist/Album navigation hot links
-  - Play specific song upon clicking play btn on song
-  - Play specific album from first song upon clicking play btn on album
   - Write a mapIndexToArtists(indexEntries) function to get the correct structure from the tracks metadata for the UI.
 
   ### Other features

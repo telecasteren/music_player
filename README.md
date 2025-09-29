@@ -28,7 +28,7 @@ This is project is maintained as a monorepo. So all parts of the application liv
 ```bash
 music-project/
 ├── Satori
-│ └── backendData     / backend data - user uploads + dev data
+│ └── backendData     / backend data - user uploads
 │ └── src             / frontend
 │   └── app           / gui
 │   └── assets        / static
@@ -105,13 +105,23 @@ npm run tauri
 
 This starts and launches the app with Tauri and Vite only.
 
+---
+### Paths and compiling
+
+Tauri creates a path in src-tauri, so if you change the location of the parent project folder locally, you need to navigate to the new folder and run the following:
+```bash
+rm -rf src-tauri # removes existing wrong path
+npm run dev:all # compiles the project again and creates the new path
+```
+This will update the path in Tauri and you're good to go again.
+
 ## Deployment and build
 
 **Native**<br/>
 The native desktop app is built using [Tauri](https://v2.tauri.app).
 
-**Web** !NOT IMPLEMENTED!<br/>
-The web version of this app is deployed using [Vercel](https://vercel.com/home).
+<s>**Web** !NOT IMPLEMENTED!<br/>
+The web version of this app is deployed using [Vercel](https://vercel.com/home).</s>
 
 ## Contributions
 

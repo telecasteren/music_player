@@ -19,6 +19,8 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useAudio } from "@/hooks/useAudio";
+import { enhanceTrack, enhanceTracks } from "@/lib/helpers/data_mapping";
 
 type Props = {
   listItems: string[];
@@ -28,6 +30,7 @@ function InnerList({ listItems }: Props) {
   const { state, isMobile } = useSidebar();
   const { selectedArtist, setSelectedArtist, selectedAlbum, setSelectedAlbum } =
     useSelectedArtist();
+  const { playTrack, playAlbum } = useAudio();
 
   return (
     <>
@@ -92,7 +95,14 @@ function InnerList({ listItems }: Props) {
                     {/* Make sure duration is always displayed */}
                   </div>
 
-                  <Button className="group flex items-center gap-2 cursor-pointer">
+                  <Button
+                    className="group flex items-center gap-2 cursor-pointer"
+                    onClick={() => {
+                      const enhancedTrack = enhanceTrack(track);
+                      playTrack(enhancedTrack);
+                      console.log("Playing track:", track.name);
+                    }}
+                  >
                     <Play className="w-4 h-4 text-gray-900 group-hover:text-gray-500" />
                     <span className="sr-only">Play</span>
                   </Button>
@@ -127,7 +137,15 @@ function InnerList({ listItems }: Props) {
                       </span>
                     </div>
 
-                    <Button className="group flex items-center gap-2 cursor-pointer">
+                    <Button
+                      className="group flex items-center gap-2 cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const enhancedTracks = enhanceTracks(album.tracks);
+                        playAlbum(enhancedTracks);
+                        console.log("Playing album:", album.name);
+                      }}
+                    >
                       <Play className="w-4 h-4 text-gray-900 group-hover:text-gray-500" />
                       <span className="sr-only">Play</span>
                     </Button>
