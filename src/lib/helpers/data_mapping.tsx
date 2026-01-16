@@ -1,6 +1,6 @@
-import artists from "@/lib/data/artistsData";
-import { BASE_URL } from "../config/frontendPaths.ts";
-import type { Track } from "@/lib/types/artistsEntry";
+import artists from "@/lib/data/artists-data.ts";
+import { BASE_URL } from "../config/frontend-paths.ts";
+import type { Track } from "@/lib/types/artists-entry.ts";
 // import type { Artist } from "@/lib/types/artistsEntry";
 
 // Used to play tracks with AudioPlayer

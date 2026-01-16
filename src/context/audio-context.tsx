@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { Track } from "@/lib/types/artistsEntry";
+import type { Track } from "@/lib/types/artists-entry";
 import type H5AudioPlayer from "react-h5-audio-player";
 
 interface AudioContextType {

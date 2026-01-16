@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { Artist, Album } from "@/lib/types/artistsEntry";
+import type { Artist, Album } from "@/lib/types/artists-entry";
 
 interface SelectedDataContextType {
   selectedArtist: Artist | null;

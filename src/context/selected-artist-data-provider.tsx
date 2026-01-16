@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { SelectedDataContext } from "./SelectedDataContext";
-import type { Artist, Album } from "@/lib/types/artistsEntry";
+import { SelectedDataContext } from "./selected-data-context";
+import type { Artist, Album } from "@/lib/types/artists-entry";
 
 export const SelectedArtistDataProvider: React.FC<{
   children: React.ReactNode;

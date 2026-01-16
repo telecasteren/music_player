@@ -1,7 +1,7 @@
 "use client";
 import { AppSidebar } from "@/components/app-sidebar";
-import { SelectedArtistDataProvider } from "@/context/SelectedArtistDataProvider";
-import { useSelectedArtist } from "@/hooks/useSelectedArtist";
+import { SelectedArtistDataProvider } from "@/context/selected-artist-data-provider";
+import { useSelectedArtist } from "@/hooks/use-selected-artist";
 import { Play, CircleArrowLeft } from "lucide-react";
 import {
   Breadcrumb,

@@ -1,8 +1,8 @@
 import { parseFile } from "music-metadata";
 import fs from "fs";
 import path from "path";
-import { musicFilesPath, INDEX_PATH } from "../config/backendPaths.ts";
-import type { MusicIndexEntry } from "@/lib/types/MusicIndexEntry";
+import { musicFilesPath, INDEX_PATH } from "../config/backend-paths.ts";
+import type { MusicIndexEntry } from "@/lib/types/music-index-entry.ts";
 
 export async function updateMusicIndex(newFiles: string[]) {
   let index: MusicIndexEntry[] = [];

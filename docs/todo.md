@@ -2,19 +2,16 @@
 
 ### Ongoing / Next up
 
-- Some UI improvements and flow:
+- Artist/Album navigation hot links
+- Write a mapIndexToArtists(indexEntries) function to get the correct structure from the tracks metadata for the UI.
+- Add dynamic listItems for menu breadcrumbs: src/app/dashboard/page.tsx
 
-  - Artist/Album navigation hot links
-  - Write a mapIndexToArtists(indexEntries) function to get the correct structure from the tracks metadata for the UI.
+## Other features
 
-  ### Other features
-
-  - Enable making Playlists
-    - expose an all songs list?
-    - mark songs to add to playlist?
-    - number of playlists restrictions?
-
-## Futuristic
+- Enable making Playlists
+  - expose an all songs list?
+  - mark songs to add to playlist?
+  - number of playlists restrictions?
 
 ### Data structure
 

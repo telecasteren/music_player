@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SelectedDataContext } from "../context/SelectedDataContext";
+import { SelectedDataContext } from "../context/selected-data-context";
 
 export const useSelectedArtist = () => {
   const context = useContext(SelectedDataContext);

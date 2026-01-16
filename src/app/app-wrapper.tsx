@@ -3,9 +3,9 @@ import AudioPlayer from "react-h5-audio-player";
 import type H5AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import "@/css/index.css";
-import useSkipBtnTooltip from "@/components/controls/skipBtnTooltip";
+import useSkipBtnTooltip from "@/components/controls/skip-btn-tooltip";
 import { useAudio } from "@/hooks/useAudio";
-import { AudioProvider } from "@/context/AudioProvider";
+import { AudioProvider } from "@/context/Audio-provider";
 
 const AppWrapperContent = () => {
   const {

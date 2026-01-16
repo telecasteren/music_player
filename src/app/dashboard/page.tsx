@@ -1,5 +1,5 @@
 import * as React from "react";
-import { InnerListWithProvider } from "./InnerList";
+import { InnerListWithProvider } from "./inner-list";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 // Sample breadcrumb data

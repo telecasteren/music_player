@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { musicFilesPath } from "../config/backendPaths.ts";
-import type { Album, Artist } from "@/lib/types/artistsEntry.ts";
+import { musicFilesPath } from "../config/backend-paths.ts";
+import type { Album, Artist } from "@/lib/types/artists-entry.ts";
 
 export function scanMusicDirectory(dirPath: string): Artist[] {
   const imageExtensions = [".jpg", ".jpeg", ".png", ".webp"];

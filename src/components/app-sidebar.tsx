@@ -1,10 +1,10 @@
 import * as React from "react";
 import { AudioLines } from "lucide-react";
 import { NavUser } from "@/components/settings/nav-user";
-import MusicFolderUploader from "@/components/MusicUploader";
-import type { Artist } from "@/lib/types/artistsEntry";
-import navData from "@/lib/data/sidebarData";
-import { useSelectedArtist } from "@/hooks/useSelectedArtist";
+import MusicFolderUploader from "@/components/music-uploader";
+import type { Artist } from "@/lib/types/artists-entry";
+import navData from "@/lib/data/sidebar-data";
+import { useSelectedArtist } from "@/hooks/use-selected-artist";
 import {
   Tooltip,
   TooltipContent,

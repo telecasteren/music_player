@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "./ui/button";
-import { UPLOAD_MUSIC_URL } from "@/lib/config/frontendPaths";
-import { pickAndReadFolder } from "@/lib/handlers/pickAndReadFolder";
+import { UPLOAD_MUSIC_URL } from "@/lib/config/frontend-paths";
+import { pickAndReadFolder } from "@/lib/handlers/pick-and-read-folder";
 
 type Props = {
   onData: () => void;
