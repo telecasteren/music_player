@@ -19,7 +19,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useAudio } from "@/hooks/useAudio";
+import { useAudio } from "@/hooks/use-audio";
 import { enhanceTrack, enhanceTracks } from "@/lib/helpers/data_mapping";
 
 type Props = {
