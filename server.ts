@@ -4,9 +4,9 @@ import fs from "fs";
 import path from "path";
 import multer from "multer";
 import fsExtra from "fs-extra";
-import { musicFilesPath } from "./src/lib/config/backendPaths.ts";
-import { scanMusicDirectory } from "./src/lib/helpers/scanMusicDirectory.ts";
-import { updateMusicIndex } from "./src/lib/handlers/uploadHandler.ts";
+import { musicFilesPath } from "./src/lib/config/backend-paths.ts";
+import { scanMusicDirectory } from "./src/lib/helpers/scan-music-directory.ts";
+import { updateMusicIndex } from "./src/lib/handlers/upload-handler.ts";
 
 /**
  * POST /api/upload-music
@@ -38,8 +38,8 @@ app.post("/api/upload-music", upload.array("files"), async (req, res) => {
   const relPaths = Array.isArray(req.body.relativePaths)
     ? req.body.relativePaths
     : req.body.relativePaths
-    ? [req.body.relativePaths]
-    : [];
+      ? [req.body.relativePaths]
+      : [];
   console.log("Received files:", files.length);
 
   const baseDir = musicFilesPath;
@@ -59,7 +59,7 @@ app.post("/api/upload-music", upload.array("files"), async (req, res) => {
         const name = path.basename(destPath, ext);
         finalDest = path.join(
           path.dirname(destPath),
-          `${name}_${Date.now()}${ext}`
+          `${name}_${Date.now()}${ext}`,
         );
       }
       await fsExtra.writeFile(finalDest, file.buffer);
