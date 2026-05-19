@@ -1,10 +1,11 @@
 import * as React from "react";
-import { AudioLines } from "lucide-react";
-import { NavUser } from "@/components/settings/nav-user";
-import MusicFolderUploader from "@/components/music-uploader";
 import type { Artist } from "@/lib/types/artists-entry";
 import navData from "@/lib/data/sidebar-data";
 import { useSelectedArtist } from "@/hooks/use-selected-artist";
+
+import { AudioLines } from "lucide-react";
+import { NavUser } from "@/components/settings/nav-user";
+import MusicFolderUploader from "@/components/music-uploader";
 import {
   Tooltip,
   TooltipContent,
@@ -166,7 +167,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         </div>
                       </a>
                     );
-                  })
+                  }),
                 )
               ) : activeItem?.title === "Artists" ? (
                 // Show artists list

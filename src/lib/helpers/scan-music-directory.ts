@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { musicFilesPath } from "../config/backend-paths.ts";
+// import { getTrackDuration } from "./get-track-duration.ts";
 import type { Album, Artist } from "@/lib/types/artists-entry.ts";
 
 export function scanMusicDirectory(dirPath: string): Artist[] {
@@ -26,15 +27,15 @@ export function scanMusicDirectory(dirPath: string): Artist[] {
         .find(
           (dirent) =>
             dirent.isFile() &&
-            imageExtensions.includes(path.extname(dirent.name).toLowerCase())
+            imageExtensions.includes(path.extname(dirent.name).toLowerCase()),
         );
 
       const img = imgFile
         ? {
             src: `/backend-data/music/user_uploads/${encodeURIComponent(
-              artistDir.name
+              artistDir.name,
             )}/${encodeURIComponent(albumDir.name)}/${encodeURIComponent(
-              imgFile.name
+              imgFile.name,
             )}`,
             alt: `${albumDir.name} cover`,
           }
@@ -47,7 +48,7 @@ export function scanMusicDirectory(dirPath: string): Artist[] {
         .readdirSync(albumPath, { withFileTypes: true })
         .filter(
           (dirent) =>
-            dirent.isFile() && /\.(mp3|m4a|wav|flac|aac)$/i.test(dirent.name)
+            dirent.isFile() && /\.(mp3|m4a|wav|flac|aac)$/i.test(dirent.name),
         );
 
       const albumObj: Album = {
@@ -56,6 +57,8 @@ export function scanMusicDirectory(dirPath: string): Artist[] {
         tracks: files.map((f) => ({
           name: f.name,
           path: path.relative(musicFilesPath, path.join(albumPath, f.name)),
+          // duration: getTrackDuration(path.join(albumPath, f.name)),
+          duration: 1, // placeholder whilst debugging
         })),
       };
       artistObj.albums.push(albumObj);

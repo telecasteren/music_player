@@ -1,4 +1,3 @@
-"use client";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SelectedArtistDataProvider } from "@/context/selected-artist-data-provider";
 import { useSelectedArtist } from "@/hooks/use-selected-artist";
@@ -46,7 +45,7 @@ function InnerList({ listItems }: Props) {
                 state === "collapsed"
                   ? "w-[calc(100%-1.25rem)] pl-10"
                   : "w-[calc(97%-350px)]",
-              ]
+              ],
         )}
       >
         <header className="bg-background sticky top-0 flex shrink-0 items-center gap-2 border-b p-4">
