@@ -21,9 +21,10 @@ export async function updateMusicIndex(newFiles: string[]) {
     ".aiff",
     ".alac",
   ];
-  const imageExtensions = [".jpg", ".jpeg", ".png", ".webp"];
 
+  const imageExtensions = [".jpg", ".jpeg", ".png", ".webp"];
   const albumFolders = new Set<string>();
+
   for (const filePath of newFiles) {
     const ext = path.extname(filePath).toLowerCase();
     if (audioExtensions.includes(ext)) {
@@ -33,8 +34,10 @@ export async function updateMusicIndex(newFiles: string[]) {
   }
 
   const albumCovers: Record<string, string> = {};
+
   for (const filePath of newFiles) {
     const ext = path.extname(filePath).toLowerCase();
+
     if (imageExtensions.includes(ext)) {
       for (const albumFolder of albumFolders) {
         if (filePath.startsWith(albumFolder + path.sep)) {
@@ -72,6 +75,7 @@ export async function updateMusicIndex(newFiles: string[]) {
           : 0;
     } catch (error) {
       console.error("Error when parsing file:", filePath, error);
+      alert("Something went wrong on upload.");
     }
 
     if (!index.some((entry) => entry.path === filePath)) {

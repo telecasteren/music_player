@@ -19,7 +19,10 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useAudio } from "@/hooks/use-audio";
-import { enhanceTrack, enhanceTracks } from "@/lib/helpers/data_mapping";
+import {
+  enhanceTrack,
+  enhanceTracks,
+} from "@/lib/helpers/create-and-enhance-track";
 
 type Props = {
   listItems: string[];
