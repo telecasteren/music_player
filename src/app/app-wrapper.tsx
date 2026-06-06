@@ -2,7 +2,7 @@ import "react-h5-audio-player/lib/styles.css";
 import "@/css/index.css";
 import App from "./App";
 import { useLocation } from "react-router-dom";
-import useSkipBtnTooltip from "@/components/controls/skip-btn-tooltip";
+import useSkipBtnTooltip from "@/hooks/use-skip-btn-tooltip";
 import { useAudio } from "@/hooks/use-audio";
 import { AudioProvider } from "@/context/audio-provider";
 import AudioPlayer from "react-h5-audio-player";

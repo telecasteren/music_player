@@ -1,7 +1,7 @@
 import * as React from "react";
-import type { Artist } from "@/lib/types/artists-entry";
-import navData from "@/lib/data/sidebar-data";
 import { useSelectedArtist } from "@/hooks/use-selected-artist";
+import navData from "@/lib/data/sidebar-data";
+import type { Artist } from "@/lib/types/artists-entry";
 
 import { AudioLines } from "lucide-react";
 import { NavUser } from "@/components/settings/nav-user";
