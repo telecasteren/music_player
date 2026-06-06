@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { AudioContext } from "@/context/audio-context";
-import type { Track } from "@/lib/types/artists-entry";
 import H5AudioPlayer from "react-h5-audio-player";
+import type { Track } from "@/lib/types/artists-entry";
 
 export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

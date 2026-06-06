@@ -1,12 +1,12 @@
-import App from "./App";
-import { useLocation } from "react-router-dom";
-import AudioPlayer from "react-h5-audio-player";
-import type H5AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import "@/css/index.css";
+import App from "./App";
+import { useLocation } from "react-router-dom";
 import useSkipBtnTooltip from "@/components/controls/skip-btn-tooltip";
 import { useAudio } from "@/hooks/use-audio";
-import { AudioProvider } from "@/context/Audio-provider";
+import { AudioProvider } from "@/context/audio-provider";
+import AudioPlayer from "react-h5-audio-player";
+import type H5AudioPlayer from "react-h5-audio-player";
 
 const AppWrapperContent = () => {
   const location = useLocation();
@@ -25,20 +25,20 @@ const AppWrapperContent = () => {
 
   return (
     <>
-      <div className="pb-[80px] min-h-screen overflow-hidden">
+      <div className="pb-20 min-h-screen overflow-hidden">
         <App />
       </div>
 
       {/* Audio Player */}
       {location.pathname !== "/" && (
-        <div className="audio_wrapper fixed bottom-0 left-0 w-full z-[9999] shadow-lg">
+        <div className="audio_wrapper fixed bottom-0 left-0 w-full z-9999 shadow-lg">
           <AudioPlayer
             ref={audioPlayerRef as React.RefObject<H5AudioPlayer>}
             autoPlay
             src={currentTrack?.url}
             onPlay={() => {
               console.log(
-                `Playing track: ${currentTrack}, track nr: ${currentTrackIndex}`
+                `Playing track: ${currentTrack}, track nr: ${currentTrackIndex}`,
               );
               setIsPlaying(true);
             }}

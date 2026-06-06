@@ -5,7 +5,7 @@ import { readDir, readFile, BaseDirectory } from "@tauri-apps/plugin-fs";
 async function walk(
   dir: string,
   root: string,
-  selectedFolderName: string
+  selectedFolderName: string,
 ): Promise<{ path: string; data: Uint8Array }[]> {
   const entries = await readDir(dir, { baseDir: BaseDirectory.Audio });
   let files: { path: string; data: Uint8Array }[] = [];
@@ -39,7 +39,9 @@ async function walk(
   return files;
 }
 
-export async function pickAndReadFolder() {
+export async function pickAndReadFolder(): Promise<
+  { path: string; data: Uint8Array }[] | undefined
+> {
   const selected = await open({ directory: true, multiple: false });
   if (!selected) return;
   const selectedFolder = selected as string;

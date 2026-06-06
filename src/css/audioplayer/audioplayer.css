@@ -1,76 +1,81 @@
 /* Container */
 .audio_wrapper .rhap_container {
-  background-color: black;
-  color: var(--text-dark);
-  padding: 0.5rem 2rem 1rem;
-  display: flex;
+    background-color: black;
+    color: var(--text-dark);
+    padding: 0.5rem 2rem 1rem;
+    display: flex;
 }
 
 /* Main controls */
 .audio_wrapper .rhap_main-controls-button {
-  display: flex;
-  align-items: center;
-  background: none;
-  border: none;
-  color: inherit;
-  font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 2.5rem;
 }
 
 /* Progress bar */
 .audio_wrapper .rhap_progress-filled {
-  background: var(--accent-dark);
+    background: var(--accent-dark);
 }
 .audio_wrapper .rhap_progress-indicator {
-  background: var(--accent-dark);
+    background: var(--accent-dark);
+    transition: scale 0.3s;
 }
 
 .audio_wrapper .rhap_progress-indicator:hover {
-  scale: 1.05;
+    scale: 1.05;
 }
 
 /* Next / Previous */
 .rhap_skip-button[aria-label="Previous"]::after {
-  content: attr(aria-label) " track";
-  position: absolute;
-  bottom: 150%;
-  left: 50%;
-  transform: translate(-95%, 80px);
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+    content: attr(aria-label) " track";
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    transform: translate(-95%, 80px);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
 }
 
 .rhap_skip-button[aria-label="Previous"].show-tooltip:hover::after {
-  opacity: 1;
-  transform: translate(-95%, 80px);
+    opacity: 1;
+    transform: translate(-95%, 80px);
 }
 
 .rhap_skip-button[aria-label="Skip"]::after {
-  content: "Next track";
-  position: absolute;
-  bottom: 150%;
-  left: 50%;
-  transform: translate(10%, 80px);
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+    content: "Next track";
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    transform: translate(10%, 80px);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
 }
 
 .rhap_skip-button[aria-label="Skip"].show-tooltip:hover::after {
-  opacity: 1;
-  transform: translate(10%, 80px);
+    opacity: 1;
+    transform: translate(10%, 80px);
 }
