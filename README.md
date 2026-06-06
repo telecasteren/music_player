@@ -45,21 +45,15 @@ music-project/
 └── README.md
 ```
 
-## Build and Tools
-
-**languages**
-
-- JavaScript/Typescript (frontend)
-- HTML/CSS (frontend)
-- Rust (backend)
-
-**frameworks/tools**
+## Build technologies
 
 - React
-- Tauri
+- Typescript (frontend)
+- Tauri: Rust (backend)
 - Vite
 - Tailwind
 - shadcn (components)
+
 
 ### Audio player
 
@@ -120,8 +114,6 @@ This will update the path in Tauri and you're good to go again.
 **Native**<br/>
 The native desktop app is built using [Tauri](https://v2.tauri.app).
 
-<s>**Web** !NOT IMPLEMENTED!<br/>
-The web version of this app is deployed using [Vercel](https://vercel.com/home).</s>
 
 ## Contributions
 
