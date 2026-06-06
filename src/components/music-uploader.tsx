@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { UPLOAD_MUSIC_URL } from "@/lib/config/frontend-paths";
 import { pickAndReadFolder } from "@/lib/handlers/pick-and-read-folder";
+import { getAudioMimeType } from "@/lib/helpers/get-audio-mime-type";
 
 type Props = {
   onData: () => void;
@@ -16,7 +17,7 @@ const MusicFolderUploader: React.FC<Props> = ({ onData }) => {
     const relativePaths: string[] = [];
 
     files.forEach(({ path, data }) => {
-      const blob = new Blob([data], { type: "audio/mpeg" });
+      const blob = new Blob([data], { type: getAudioMimeType(path) });
       formData.append("files", blob, path);
       relativePaths.push(path);
     });
